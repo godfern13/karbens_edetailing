@@ -1,0 +1,181 @@
+body {
+    background: none repeat scroll 0 0 #DCEBF9;
+    font-family: times new roman;
+    font-size: 12px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper{
+	float:left;
+	width:100%;
+	margin:0 auto;
+	background: none repeat scroll 0 0 #DCEBF9;
+}
+#mainWrapper{
+	float:left;
+	width:100%;
+	background: none repeat scroll 0 0 #FFFFFF;
+}
+#container{
+	float:left;
+	margin:0;
+	padding:0;
+	width:980px;
+}
+ul,li{
+	text-decoration: none;
+	display:inline;
+	list-style-type: none;
+	float:left;
+}
+
+a{
+/*float:left;*/
+margin:0;
+padding:0;
+color:#000000;
+font:12px;
+text-decoration:none;
+}
+
+p{
+float:left;
+margin:0;
+padding:0;
+}
+
+/*----------------------------------Header Styles----------------------------------------*/
+#headerDiv{
+float:left;
+margin:0px;
+padding:0px 0 0 0;
+width:100%;
+height:120px;
+background: #FFFFFF;/*#004C66*/
+}
+
+#logoDiv{
+position: absolute;
+margin: 7px 0 0 95px;
+font-style:italic;
+font: 28px arial;
+text-align:center;
+border:none;
+}
+
+#header-top-div {
+background: #FFFFFF;
+float: left;
+height: 46px;
+margin: 0;
+padding: 5px 0 10px 20px;
+width: 98%;
+color:#E93F20;
+}
+
+/*------------------------------------Login Styles---------------------------------------*/
+#loginWrapper{
+float:left;
+margin:0 0 0 125px;
+padding:0px 0 0 0;
+width:980px;
+height: 464px;
+background: #FFFFFF;/*#004C66*/
+}
+
+#loginDiv{
+float:left;
+margin:0 0 0;
+padding:10px 20px;
+height: 444px;
+background: #F6F6F6;/*#004C66*/
+}
+
+#loginDiv ul{
+float:left;
+margin:0px;
+padding:40px 0;
+width:400px;
+border:2px solid #A0A0A0;
+background: #F6F6F6;
+}
+
+#loginDiv ul li{
+float:left;
+margin:0 0 12px 0;
+padding:0px 0 0 0;
+width:400px;
+text-align: center;
+}
+
+.loginTextBox{
+margin:0px 0;
+padding:0px 0 0 0;
+width:200px;
+height:25px;
+border:2px solid #A0A0A0;
+border-radius:4px;
+}
+
+.loginButton{
+margin:0px 0;
+padding:3px 45px;
+border:2px solid #A0A0A0;
+border-radius:4px;
+}
+
+/*-------------------------------Forgot Password Styles-------------------------------------*/
+#frgtPswdDiv{
+float:left;
+margin:0px;
+padding:30px 0;
+width:400;
+height:80px;
+background: #CECECE;
+}
+
+#frgtPswdDiv ul{
+float:left;
+margin:0px;
+padding:0 0 0;
+width:400px;
+}
+
+#frgtPswdDiv ul li{
+float:left;
+margin:0 0 20px 0;
+padding:0 0 0;
+width:400;
+text-align:center;
+}
+
+/*--------------------------------FOOTER STYLES-------------------------------*/
+#footerDiv{
+float:left;
+margin:0px;
+padding:0 0 0;
+width:100%;
+height:80px;
+background: #A9A9A9;
+}
+
+#footerDevBy{
+float:right;
+margin:30px 15px 0 0px;
+padding:0 0 0;
+color:#FFFFFF;
+}
+#footerDevBy a{
+color:#FFFFFF;
+}
+
+#footerBottom{
+float:left;
+margin:5px 0 0 0;
+padding:0 0 0;
+width:100%;
+height:30px;
+background: #A9A9A9;
+}
