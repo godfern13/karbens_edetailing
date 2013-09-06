@@ -5,6 +5,14 @@
 	if(!(isset($_SESSION["msg"]))){
 		$_SESSION["msg"]="";
 	}
+	
+	// session_start();
+	 include("classes/classes.php");
+	 $addContentObj = new contentClass();
+	 $contentCnt  = $addContentObj->getContentCount();
+	 $addContentObj->addToContentArray($contentCnt);
+	 $_SESSION['contentCnt'] = $contentCnt;
+	 $_SESSION['contentObject'.$contentCnt] = serialize($addContentObj);
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -38,29 +46,8 @@
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>
 						
-						<a href="add_slide.php" id="addPresentation" class="addbtn">New Presentation</a>
+						<a href="slide.php" id="addPresentation" class="addbtn">New Slide</a>
 					</div>
-					
-					<!--<div id="toPopup"><!--toPopup start-->
-					<!--	<div class="close"></div>
-						<span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
-						<div id="popup_content">
-							<div id="presentnForm">
-								<ul>
-									<li style="margin:10px 0 0 0;">Name your presentation<li>
-									<li style="margin:10px 0 0 0;">:<li>
-									<li>
-										<input type="text" id="prestnName" name="prestnName" class="prestnTextbox">
-									<li>
-									<li style="width:100%;">
-										<input type="button" value="Create" id="prestnBtn" name="prestnBtn" class="btn">
-									</li>
-								</ul>
-							</div>
-						</div> <!--your content end-->
-					<!--</div> <!--toPopup end-->
-					
-					<div id="backgroundPopup"></div>
 					<div id="allPresentations">
 						
 					</div>

@@ -5,7 +5,8 @@
 	<?php	
 		
 		//echo $_SESSION["userId"];
-		if (isset($_SESSION["uname"]) )
+		//echo isset($_SESSION["uname"]);
+		if (isset($_SESSION["userId"]) )
 		{
 			echo "<span style='list-style:none;width:970px;'><font style='float:right;'>Welcome :".$_SESSION["uname"]."</font></span><br><a href='logout.php' style='font:italic bold 12px/30px Georgia,serif;float:right;color:#EAEAEA'>Log out</a>"; 	 
 		}

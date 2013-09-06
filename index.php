@@ -14,7 +14,11 @@
 		}else{
 			$error = " <p class='errorMessage' ><strong>Invalid Username or Password</strong></p><br/>";
 		}
-	} 
+	}
+
+	/*if(!(isset($_SESSION["msg"]))){
+		$_SESSION["msg"]="";
+	}*/
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -43,6 +47,12 @@
 			}
 		
 		</script>
+		<script>
+		$(function(){
+			$("#errormsg").fadeOut(3000);
+		});
+		
+		</script>
 		
 	</head>
 	
@@ -50,6 +60,16 @@
 		<div id="wrapper">
 		<?include('include/header.php');?>
 			<div id="mainWrapper">
+			<?
+			if($_SESSION["msg"]!=""){
+			?>
+			<div id="errormsg" style="display:block;">
+			<?
+				echo $_SESSION["msg"];
+				$_SESSION["msg"] = "";
+			?>
+			</div>
+			<?}?>
 				<div id="container">
 					<div id="loginWrapper">
 						<div id="loginDiv">

@@ -26,6 +26,7 @@
 	<body>
 		<div id="wrapper">
 			<div id="headerDiv">
+			<?//include('include/header.php');?>
 				<ul style="width:950px">
 					<li>
 						<input type="image" name="saveSlide" id="saveSlide" src="images/submit.png" onclick="return slideSaveCall()"/>
