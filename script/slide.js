@@ -327,7 +327,7 @@ function slideSaveCall()
 		data:dataStrng,
 		success: function(data) { 
 			alert("Presentation Slide Added Sucessfully");
-			window.location='createPresentation.php';
+			window.location='add_slide.php';
 		}
 	});
 }
