@@ -6,6 +6,7 @@
 		$_SESSION["msg"]="";
 	}
 	
+	$presnt_id = base64_decode($_GET['id']);
 	// session_start();
 	 include("classes/classes.php");
 	 $addContentObj = new contentClass();
@@ -32,7 +33,9 @@
 		</style>
 		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<!--<script src="script/dashboard.js" type="text/javascript"></script>-->
+		<script src="script/popup.js" type="text/javascript"></script>
+		<script src="js/addSlide.js" type="text/javascript"></script>
+		<script src="js/loadSlide.js" type="text/javascript"></script>
 		
 	</head>
 	<body id="admin_home">
@@ -46,9 +49,29 @@
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>
 						
-						<a href="slide.php" id="addPresentation" class="addbtn">New Slide</a>
+						<a href="slide.php" id="addSlide" class="addbtn">New Slide</a>
+						<div id="toPopup"><!--toPopup start-->
+							<div class="close"></div>
+							<span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
+							<div id="popup_content">
+								<div id="slideForm" class="popupForm">
+									<ul>
+										<li style="margin:10px 0 0 0;">Name your Slide<li>
+										<li style="margin:10px 0 0 0;">:<li>
+										<li>
+											<input type="text" id="slideName" name="slideName" class="popupTextbox">
+										<li>
+										<li style="width:100%;">
+											<input type="button" value="Create" id="slideBtn" name="slideBtn" class="popupBtn">
+										</li>
+									</ul>
+								</div>
+							</div> <!--your content end-->
+						</div> <!--toPopup end-->
+						<input type="hidden" id="contentId" name="contentId" value="<?echo $presnt_id?>">
 					</div>
-					<div id="allPresentations">
+					<div id="backgroundPopup"></div>
+					<div id="allSlides" class="contentDisplay">
 						
 					</div>
 				</div>

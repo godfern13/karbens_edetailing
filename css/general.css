@@ -180,13 +180,14 @@ width: 60px;
 cursor:pointer;
 }
 
-#allPresentations{
-margin: 0 auto;
+.contentDisplay{
+margin: 0 0 20px 0;
 padding:0 0 0;
 width: 1100px;
-height:400px;
+min-height:400px;
 background: #FFFFFF;
 box-shadow:0px 0px 25px 5px #A9A9A9;
+display: inline-block;
 }
 
 /********************************/
@@ -275,7 +276,7 @@ height:200px
 */
 }
 
-div#presentnForm{
+div.popupForm{
 float:left;
 margin: 0;
 padding:0 0 0;
@@ -283,26 +284,26 @@ width: 100%;
 height:200px;
 }
 
-div#presentnForm ul{
+div.popupForm ul{
 float:left;
 margin: 0;
 padding:40px 0 0 75px;
 font:16px Verdana;
 }
 
-div#presentnForm ul li{
+div.popupForm ul li{
 float:left;
 margin: 0 0 20px 0;
 padding:0 0 0;
 }
 
-.prestnTextbox{
+.popupTextbox{
 width:400px;
 height:40px;
 font: 16px verdana;
 }
 
-.btn{
+.popupBtn{
 width:200px;
 height:40px;
 font: 16px verdana;
@@ -315,6 +316,25 @@ padding:5px 10px;
 display:none;
 }
 
+
+/*****All Presentations Display*************/
+#prsntDiv{
+min-height:400px;
+margin: 0 auto;
+padding: 20px 23px;
+width: 1054px;
+display: inline-block;
+}
+.prsntContent{
+float:left;
+margin: 0 0 20px 20px;
+padding:0px;
+width:150px;
+height:150px;
+text-align:center;
+box-shadow: 0 0 5px 0 blue;
+border-radius:20px;
+}
 /********************************/
 
 

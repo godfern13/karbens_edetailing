@@ -3,7 +3,7 @@
 	$error='';
 	require_once ("library/functions.php");
 	require_once("library/pswdMail.php");
-	require_once("include/csGeneral.php");
+	require_once("classes/csGeneral.php");
 	/*if(!(isset($_SESSION["msg"]))){
 		$_SESSION["msg"]="";
 	}*/

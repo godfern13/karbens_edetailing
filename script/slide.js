@@ -319,7 +319,10 @@ function slideSaveCall()
 	//document.getElementById("frame").disabled = true;
 	//document.getElementById("rightDiv").disabled = true;
 	var chldCunter	=	$('input#chldCnt').val();
-	var dataStrng	=	'chldCunter='+chldCunter;
+	var prntId	=	$('input#prntId').val();
+	
+	var dataStrng	=	'chldCunter='+chldCunter + '&parent_id=' + prntId;
+	
     $.ajax({
 		type: "POST",
 		url: "Ajax/saveSlideProcess.php",
@@ -327,7 +330,7 @@ function slideSaveCall()
 		data:dataStrng,
 		success: function(data) { 
 			alert("Presentation Slide Added Sucessfully");
-			window.location='add_slide.php';
+			setTimeout("window.location='add_slide.php?id="+btoa(prntId)+"'",1000);
 		}
 	});
 }

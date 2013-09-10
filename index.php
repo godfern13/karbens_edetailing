@@ -1,7 +1,7 @@
 <?php 
 	$error='';
 	require_once ("library/functions.php");
-	require_once ("include/csGeneral.php");
+	require_once ("classes/csGeneral.php");
 	
 	$generalObj = new general();
 	
@@ -16,9 +16,9 @@
 		}
 	}
 
-	/*if(!(isset($_SESSION["msg"]))){
+	if(!(isset($_SESSION["msg"]))){
 		$_SESSION["msg"]="";
-	}*/
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

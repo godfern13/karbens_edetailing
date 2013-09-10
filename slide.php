@@ -1,6 +1,13 @@
 <?php
-	session_start();
+	require_once("classes/csGeneral.php");
+	require_once "library/dbcon.php";
+	require_once "library/functions.php";
+	sessionCheck();
+	//session_start();
 	include("classes/classes.php");
+	
+	$slideId = base64_decode($_GET['id']);
+	
 	$contentCnt		=	$_SESSION['contentCnt'];
 	$addParentObj 	=   unserialize($_SESSION['contentObject'.$contentCnt]);
 	$parentCount	=	$addParentObj->getParentCount();
@@ -30,6 +37,7 @@
 				<ul style="width:950px">
 					<li>
 						<input type="image" name="saveSlide" id="saveSlide" src="images/submit.png" onclick="return slideSaveCall()"/>
+						<input type="hidden" id="prntId" name="prntId" value="<?echo $slideId?>">
 					</li>
 				</ul>
 			</div>

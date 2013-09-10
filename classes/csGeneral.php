@@ -50,4 +50,12 @@ class general {
 		$row = mysql_fetch_array($result);
 		return $row[0];
 	}
+	
+	function getLastId($tableName)
+	{
+		$strQry="select LAST_INSERT_ID as id from ".$tableName;
+		$result = mysql_query($strQry);
+		$row = mysql_fetch_array($result);
+		return $row['id'];
+	}
 }

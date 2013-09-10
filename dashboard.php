@@ -24,7 +24,9 @@
 		</style>
 		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<!--<script src="script/dashboard.js" type="text/javascript"></script>-->
+		<script src="script/popup.js" type="text/javascript"></script>
+		<script src="js/dashboard.js" type="text/javascript"></script>
+		<script src="js/loadDashboard.js" type="text/javascript"></script>
 		
 	</head>
 	<body id="admin_home">
@@ -41,29 +43,30 @@
 						<a href="add_slide.php" id="addPresentation" class="addbtn">New Presentation</a>
 					</div>
 					
-					<!--<div id="toPopup"><!--toPopup start-->
-					<!--	<div class="close"></div>
+					<div id="toPopup"><!--toPopup start-->
+						<div class="close"></div>
 						<span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
 						<div id="popup_content">
-							<div id="presentnForm">
+							<div id="presentnForm" class="popupForm">
 								<ul>
 									<li style="margin:10px 0 0 0;">Name your presentation<li>
 									<li style="margin:10px 0 0 0;">:<li>
 									<li>
-										<input type="text" id="prestnName" name="prestnName" class="prestnTextbox">
+										<input type="text" id="prestnName" name="prestnName" class="popupTextbox">
 									<li>
 									<li style="width:100%;">
-										<input type="button" value="Create" id="prestnBtn" name="prestnBtn" class="btn">
+										<input type="button" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
 									</li>
 								</ul>
 							</div>
 						</div> <!--your content end-->
-					<!--</div> <!--toPopup end-->
+					</div> <!--toPopup end-->
 					
 					<div id="backgroundPopup"></div>
-					<div id="allPresentations">
+					<div id="allPresentations" class="contentDisplay">
 						
 					</div>
+					<input type="hidden" id="userId" name="userId" value="<?echo $_SESSION["userId"]?>">
 				</div>
 			</div>
 			<?include('include/footer.php');?>

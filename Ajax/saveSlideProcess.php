@@ -13,5 +13,5 @@
 		$chldSpecObj 	= 	unserialize($_SESSION['childObject'.$i]);
 		$chldData		.=	$chldSpecObj->saveChildData();
 	}
-	//echo $chldData;
+	echo $chldData;
 ?>

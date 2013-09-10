@@ -1,6 +1,6 @@
 <?php
 include('../../library/dbcon.php');
-require_once ("../../include/csGeneral.php");
+require_once ("../../classes/csGeneral.php");
 session_start();
 	
 $generalObj = new general();

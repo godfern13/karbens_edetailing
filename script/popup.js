@@ -59,38 +59,11 @@ jQuery(function($) {
 
 	function disablePopup() {
 		if(popupStatus == 1) { // if value is 1, close popup
+			$('#prestnName').val('');
 			$("#toPopup").fadeOut("normal");
 			$("#backgroundPopup").fadeOut("normal");
 			popupStatus = 0;  // and set value to 0
+			
 		}
 	}
-	
-	//SAVE PRESENTAION
-	$("#prestnBtn").click(function() {
-		var flag = true;
-		var name = $.trim($('#prestnName').val());
-		if(name == ''){
-			alert('enter presentation name');
-			flag = false;
-		}
-		
-		var data = '&pName=' + name;
-	
-		$.ajax({
-		url: 'Ajax/presentnSubmit.php',
-		type: 'POST',
-		data: data,
-		cache: false,
-		success: function(data){
-			if(!data){
-				$('#succesMsg').html('Error');
-			} else {
-				$('#succesMsg').html(data).fadeOut();
-			}
-		}
-		});
-	
-	});
-	
-	/************** end: functions. **************/
-}); // jQuery End
+});

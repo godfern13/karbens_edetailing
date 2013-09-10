@@ -5,21 +5,25 @@
 	sessionCheck();
 	
 	$generalObj = new general();
-	$table_name	= 'content';
+	$table_name	= 'parent';
 	$table_col	= 'id';
-	$contentId		= $generalObj->getPK($table_name,$table_col);
+	$prntId		= $generalObj->getPK($table_name,$table_col);
 	
-	$name 	= $_POST['pName'];
-	$query 	= "	INSERT INTO content(id,name)VALUES(".$contentId.",'".$name."')";
+	$contentId 	= $_POST['c_id'];
+	$name 		= $_POST['sName'];
+	
+	$query 	= "	INSERT INTO parent(id,content_id,name)VALUES(".$prntId.",".$contentId.",'".$name."')";
+	
+	//echo $query;
 	$result = mysql_query($query)or die(mysql_error());
 	$error 	= mysql_error() != '' ? true : false;
 
 	if($error)
 	{
-		echo '1';
+		return false;
 	}
 	else{
-		echo $contentId;
+		echo $prntId;
 	}
 	
 	//header('Location:../add_slide.php');

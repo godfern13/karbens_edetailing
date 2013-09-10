@@ -79,6 +79,14 @@
 		}
 		public function saveParentData()
 		{
+			$generalObj = new general();
+			$table_name	= 'parent';
+			$table_col	= 'id';
+			$prntId		= $generalObj->getPK($table_name,$table_col);
+			
+			$contentId = $generalObj->getLastId($table_name);//Fetch the content id Content Table
+			$url = '';
+			
 			$parentName			=	$this->parName;
 			$parentCretedDte	=	$this->parCrDte;
 			$parentUpdtedDte	=	$this->parUpDte;
@@ -90,9 +98,19 @@
 			$parentX			=	$this->parentX;
 			$parentY			=	$this->parentY;
 			
+			if($childCount> 0 ){
+				$chldStatus = 1;//Has Child
+			}
+			else{
+				$chldStatus = 0;//No Child
+			}
+			
+			$prntFrameData = $parentWidth.','.$parentheight.','.$parentX.','.$parentY;
+			
 			//--------------------------------- Sql Statement Save parent Query ----------------------------------------------------//
-			
-			
+			$query 	= "	INSERT INTO parent(id,content_id,name,frame,content_url,has_childs,added_on,updated_on)
+									VALUES(".$prntId.",".$contentId.",'".$parentName."','".$prntFrameData."','".$url."',".$chldStatus.",'".$parentCretedDte."','".$parentUpdtedDte."')";
+			$result = mysql_query($query)or die(mysql_error());
 			//---------------------------------------------------------------------------------------------------------------------//
 			
 			/*$data	=	'<br>Slide Name:'.$parentName.' CreatedDate:'.$parentCretedDte.' Width:'.$parentWidth.' Height:'.$parentheight;
@@ -199,6 +217,19 @@
 		}
 		public function saveChildData()
 		{
+			$generalObj = new general();
+			$table_name	= 'child';
+			$table_col	= 'id';
+			$chldId		= $generalObj->getPK($table_name,$table_col);
+			
+			$parentId = $generalObj->getLastId($table_name);//Fetch parent id from parent table
+			
+			$animated = 0;
+			$animationType = '';
+			$animationPathCord = '';
+			$delaySlideTime = '';
+			$ext = '';
+			
 			$childName		=	$this->chldName;
 			$childCretedDte	=	$this->chldCrDte;
 			$childUpdtedDte	=	$this->chldUpDte;
@@ -211,7 +242,12 @@
 			$childText		=	$this->childText;
 			$childImgPath	=	$this->childImgPath;
 			
+			$childFrameData = $childWidth.','.$childheight.','.$childX.','.$childY;
+			
 			//-------------------------------- Query to add Child Data ---------------------------------------------//
+			$query = "	INSERT INTO child(id,parent_id,name,type,content_url,frame,isAnimated,animType,animPathCord,delayTime,content_extention,added_on,updated_on)
+									VALUES(".$chldId.",".$parentId.",'".$childName."',".$childCntType.",'".$childImgPath."','".$childFrameData."',".$animated.",'".$animationType."','".$animationPathCord."','".$delaySlideTime."','".$ext."','".$childCretedDte."','".$childUpdtedDte."')";
+			$result = mysql_query($query)or die(mysql_error());
 			
 			//------------------------------------------------------------------------------------------------------//
 			
