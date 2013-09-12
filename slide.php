@@ -6,7 +6,7 @@
 	//session_start();
 	include("classes/classes.php");
 	
-	$slideId = base64_decode($_GET['id']);
+	$slideId = base64_decode($_GET['id']);	
 	
 	$contentCnt		=	$_SESSION['contentCnt'];
 	$addParentObj 	=   unserialize($_SESSION['contentObject'.$contentCnt]);
@@ -29,6 +29,136 @@
 	</script>
 	<link rel="stylesheet" type="text/css" href="css/framework.css" media="all" />
 	<script type="text/javascript" src="script/slide.js"></script>
+	<script type="text/javascript" src="script/dragresize.js"></script>
+	<script type="text/javascript" src="script/h5utils.js"></script>
+	
+	<style type="text/css">
+
+	/* Required CSS classes: must be included in all pages using this script */
+
+	/* Apply the element you want to drag/resize */
+	.drsElement {
+	 position: absolute;
+	 border: 1px solid #333;
+	 word-wrap:break-word;
+	}
+	
+	/* Apply the Rect element you want to drag/resize */
+	.drsRectElement{
+	 position: absolute;
+	 border: 1px solid #333;
+	 word-wrap:break-word;
+	 text-align:center;
+	}
+	
+	/* Apply the Text element you want to drag/resize */
+	.drsTextElement {
+	 position: absolute;
+	 border: 1px dotted #333;
+	 word-wrap:break-word;
+	 text-align:center;
+	}
+	
+	.border 
+	{ 
+	  border-color: #C1E0FF; 
+	  border-width:1px; 
+	  border-style:solid; 
+	}
+	
+	 The main mouse handle that moves the whole element.
+	 You can apply to the same tag as drsElement if you want.
+	*/
+	.drsMoveHandle {
+	 height: 20px;
+	 background-color: #CCC;
+	 border-bottom: 1px solid #666;
+	 cursor: move;
+	 text-align:center;
+	}
+	
+	.drsMoveTextHandle {
+	 height: 20px;
+	 background-color: #CCC;
+	 /*border-bottom: 1px solid #666;*/
+	 cursor: move;
+	 text-align:center;
+	}
+	
+	.drsMoveRectHandle {
+	 height: 20px;
+	 background-color: #CCC;
+	 border-bottom: 1px solid #666;
+	 cursor: move;
+	 text-align:center;
+	}
+
+	/*
+	 The DragResize object name is automatically applied to all generated
+	 corner resize handles, as well as one of the individual classes below.
+	*/
+	.dragresize {
+	 position: absolute;
+	 width: 5px;
+	 height: 5px;
+	 font-size: 1px;
+	 background: #EEE;
+	 border: 1px solid #333;
+	}
+
+	/*
+	 Individual corner classes - required for resize support.
+	 These are based on the object name plus the handle ID.
+	*/
+	.dragresize-tl {
+	 top: -8px;
+	 left: -8px;
+	 cursor: nw-resize;
+	}
+	.dragresize-tm {
+	 top: -8px;
+	 left: 50%;
+	 margin-left: -4px;
+	 cursor: n-resize;
+	}
+	.dragresize-tr {
+	 top: -8px;
+	 right: -8px;
+	 cursor: ne-resize;
+	}
+
+	.dragresize-ml {
+	 top: 50%;
+	 margin-top: -4px;
+	 left: -8px;
+	 cursor: w-resize;
+	}
+	.dragresize-mr {
+	 top: 50%;
+	 margin-top: -4px;
+	 right: -8px;
+	 cursor: e-resize;
+	}
+
+	.dragresize-bl {
+	 bottom: -8px;
+	 left: -8px;
+	 cursor: sw-resize;
+	}
+	.dragresize-bm {
+	 bottom: -8px;
+	 left: 50%;
+	 margin-left: -4px;
+	 cursor: s-resize;
+	}
+	.dragresize-br {
+	 bottom: -8px;
+	 right: -8px;
+	 cursor: se-resize;
+	}
+	
+	</style>
+	
 </head>
 	<body>
 		<div id="wrapper">

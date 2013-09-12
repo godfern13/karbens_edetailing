@@ -28,6 +28,7 @@
 		<script src="js/dashboard.js" type="text/javascript"></script>
 		<script src="js/loadDashboard.js" type="text/javascript"></script>
 		
+		
 	</head>
 	<body id="admin_home">
 		<div id="wrapper">
@@ -56,11 +57,35 @@
 									<li>
 									<li style="width:100%;">
 										<input type="button" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
+										<input type="hidden" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
 									</li>
 								</ul>
 							</div>
 						</div> <!--your content end-->
 					</div> <!--toPopup end-->
+					
+					<div id="sharePopup"><!--toPopup start-->
+						<div class="close"></div>
+						<span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
+						<div id="popup_content">
+							<div id="presentnForm" class="popupForm">
+								<ul>
+									<li style="margin:10px 0 0 0;">Enter Email-Id<li>
+									<li style="margin:10px 0 0 0;">:<li>
+									<li>
+										<input type="text" id="emailId" name="emailId" class="popupTextbox">						
+									<li>
+									<span id="email_error_0" class="errormsg"></span>
+									<li style="width:100%;">
+										<input type="button" value="Share" id="shareBtn" name="shareBtn" onclick="sharePresentn();" class="popupBtn">
+										<input type="hidden" id="prntId" name="prntId" >
+										
+									</li>
+								</ul>
+							</div>
+						</div> <!--your content end-->
+					</div> <!--toPopup end-->
+					
 					
 					<div id="backgroundPopup"></div>
 					<div id="allPresentations" class="contentDisplay">

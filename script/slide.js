@@ -1,4 +1,49 @@
 $(document).ready(function(){
+
+
+
+/*-----------------------------------------Resize Element---------------------------------------------*/
+
+/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
+		var dragresize = new DragResize('dragresize', { minWidth: 50, minHeight: 50, minLeft: 20, minTop: 20, maxLeft: 600, maxTop: 600 });
+		
+		/*-------------------------Rectangle Script----------------------------*/
+		dragresize.isElement = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsTextElement') > -1) return true;
+		};
+		dragresize.isHandle = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsMoveRectHandle') > -1) return true;
+		};
+		
+		/*--------------------------Text Script------------------------------------*/
+		dragresize.isElement = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsTextElement') > -1) return true;
+		};
+		dragresize.isHandle = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsMoveTextHandle') > -1) return true;
+		};
+		
+		dragresize.ondragfocus = function() { };
+		dragresize.ondragstart = function(isResize) { };
+		dragresize.ondragmove = function(isResize) { };
+		dragresize.ondragend = function(isResize) { };
+		dragresize.ondragblur = function() { };
+		
+		dragresize.apply(document);
+
+
+
+
+
+
+
+
+/*-----------------------------------------------------------------------------------------------------*/
+
 	$("#frame").click(function(){showParSpec()});
 	var offset2 = $("#frame").offset();
 	var w = $(window);
@@ -42,6 +87,7 @@ $(document).ready(function(){
 				counter++;
 				var element=$(ui.draggable).clone();
 				element.addClass("tempclass");
+				element.addClass("drsTextElement");
 				$(this).append(element);
 				$(".tempclass").attr("id","clonediv"+counter);
 				$("#clonediv"+counter).removeClass("tempclass");
@@ -323,7 +369,8 @@ function slideSaveCall()
 	
 	var dataStrng	=	'chldCunter='+chldCunter + '&parent_id=' + prntId;
 	
-    $.ajax({
+    alert(dataStrng)
+	$.ajax({
 		type: "POST",
 		url: "Ajax/saveSlideProcess.php",
 		cache: false,

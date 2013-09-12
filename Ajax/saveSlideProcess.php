@@ -1,5 +1,8 @@
 <?php
 	session_start();
+	require_once("../library/dbcon.php");
+	require_once("../classes/csGeneral.php");
+	
 	include("../classes/classes.php");
 	$childCunter	=	$_POST['chldCunter'];
 	$contentCnt		=	$_SESSION['contentCnt'];

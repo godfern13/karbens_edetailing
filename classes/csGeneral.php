@@ -45,17 +45,17 @@ class general {
 	
 	function getPK($tableName,$columnName)
 	{
-		$strQry="select coalesce(max(".$columnName."),0)+1 as PK from ".$tableName;
-		$result = mysql_query($strQry);
+		$strQry ="select coalesce(max(".$columnName."),0)+1 as PK from ".$tableName;
+		$result = mysql_query($strQry)or die(mysql_error());		
 		$row = mysql_fetch_array($result);
-		return $row[0];
+		return $row['PK'];
 	}
 	
 	function getLastId($tableName)
 	{
-		$strQry="select LAST_INSERT_ID as id from ".$tableName;
-		$result = mysql_query($strQry);
+		$strQry="select max(id) as id from ".$tableName;
+		$result = mysql_query($strQry)or die(mysql_error());	
 		$row = mysql_fetch_array($result);
-		return $row['id'];
+		return $row['id'];		
 	}
 }

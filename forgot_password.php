@@ -2,7 +2,7 @@
 	
 	$error='';
 	require_once ("library/functions.php");
-	require_once("library/pswdMail.php");
+	require_once("library/mailFunctions.php");
 	require_once("classes/csGeneral.php");
 	/*if(!(isset($_SESSION["msg"]))){
 		$_SESSION["msg"]="";
@@ -35,7 +35,7 @@
 							$password .= $allowed_chars{mt_rand(0, $allowed_count - 1)};
 						}
 					}
-					sendAdminMail($id,$user_name,$email,$password);
+					sendPasswordMail($id,$user_name,$email,$password);
 			}
 			
 			else{

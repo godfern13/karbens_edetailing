@@ -42,7 +42,6 @@ text-decoration:none;
 }
 
 p{
-float:left;
 margin:0;
 padding:0;
 }
@@ -55,6 +54,15 @@ top:50px;
 left:570px;
 background:seashell;
 display:none;
+}
+
+.errormsg{
+float:left;
+padding: 0px;
+color: #DD4B39;
+display:none;
+line-height: 17px;
+margin:  0 0 0 5px;
 }
 
 /*----------------------------------Header Styles----------------------------------------*/
@@ -193,7 +201,7 @@ display: inline-block;
 /********************************/
 
 #backgroundPopup {
-z-index:1;
+z-index:30;
 position: fixed;
 display:none;
 height:100%;
@@ -215,7 +223,22 @@ margin-left: -402px;
 position: fixed;
 /*top: 20%;*/
 width: 800px;
-z-index: 2;
+z-index: 40;
+}
+
+#sharePopup {
+font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+background: none repeat scroll 0 0 #FFFFFF;
+box-shadow:0px 0px 15px 3px ghostwhite;
+color: #333333;
+display: none;
+font-size: 14px;
+left: 50%;
+margin-left: -402px;
+position: fixed;
+/*top: 20%;*/
+width: 800px;
+z-index: 40;
 }
 	
 div.loader {
@@ -325,6 +348,15 @@ padding: 20px 23px;
 width: 1054px;
 display: inline-block;
 }
+
+.presentnHeader{
+float:left;
+margin: 0 0px;
+padding:0px;
+width:150px;
+text-align:center;
+}
+
 .prsntContent{
 float:left;
 margin: 0 0 20px 20px;
@@ -335,6 +367,64 @@ text-align:center;
 box-shadow: 0 0 5px 0 blue;
 border-radius:20px;
 }
+
+.clickable{
+float:left;
+margin: 0px;
+padding:0px;
+width:150px;
+height:150px;
+}
+
+.prsntContent:hover #hoverContent{
+cursor:pointer;
+display: block;
+}
+#prsntContent:hover{
+background:grey;
+cursor:pointer;
+display: block;
+z-index:1000;
+}
+
+#hoverContent{
+position:absolute;
+margin:20px 0 0 0;
+width:140px;
+height:20px;
+display:none;
+}
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    content: attr(title);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 220px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
 /********************************/
 
 

@@ -79,13 +79,15 @@
 		}
 		public function saveParentData()
 		{
+			
 			$generalObj = new general();
+			
 			$table_name	= 'parent';
 			$table_col	= 'id';
 			$prntId		= $generalObj->getPK($table_name,$table_col);
 			
-			$contentId = $generalObj->getLastId($table_name);//Fetch the content id Content Table
-			$url = '';
+			$contentId = $generalObj->getLastId('content');//Fetch the content id Content Table
+			//$url = '';
 			
 			$parentName			=	$this->parName;
 			$parentCretedDte	=	$this->parCrDte;
@@ -98,6 +100,13 @@
 			$parentX			=	$this->parentX;
 			$parentY			=	$this->parentY;
 			
+			if($parentBgImg == ''){
+				$imgUrl = '';
+			}
+			else{
+				$imgUrl = $parentBgImg;
+			}
+			
 			if($childCount> 0 ){
 				$chldStatus = 1;//Has Child
 			}
@@ -109,7 +118,8 @@
 			
 			//--------------------------------- Sql Statement Save parent Query ----------------------------------------------------//
 			$query 	= "	INSERT INTO parent(id,content_id,name,frame,content_url,has_childs,added_on,updated_on)
-									VALUES(".$prntId.",".$contentId.",'".$parentName."','".$prntFrameData."','".$url."',".$chldStatus.",'".$parentCretedDte."','".$parentUpdtedDte."')";
+									VALUES(".$prntId.",".$contentId.",'".$parentName."','".$prntFrameData."','".$imgUrl."',".$chldStatus.",'".$parentCretedDte."','".$parentUpdtedDte."')";
+			echo $query;
 			$result = mysql_query($query)or die(mysql_error());
 			//---------------------------------------------------------------------------------------------------------------------//
 			
@@ -222,7 +232,7 @@
 			$table_col	= 'id';
 			$chldId		= $generalObj->getPK($table_name,$table_col);
 			
-			$parentId = $generalObj->getLastId($table_name);//Fetch parent id from parent table
+			$parentId = $generalObj->getLastId('parent');//Fetch parent id from parent table
 			
 			$animated = 0;
 			$animationType = '';
@@ -242,11 +252,19 @@
 			$childText		=	$this->childText;
 			$childImgPath	=	$this->childImgPath;
 			
+			//if($childCntType == ''){
+				$childCntType = 0;
+			//}
+			
+			//if($childCntType == 1){
+				$childImgPath = '';
+			//}
 			$childFrameData = $childWidth.','.$childheight.','.$childX.','.$childY;
 			
 			//-------------------------------- Query to add Child Data ---------------------------------------------//
 			$query = "	INSERT INTO child(id,parent_id,name,type,content_url,frame,isAnimated,animType,animPathCord,delayTime,content_extention,added_on,updated_on)
 									VALUES(".$chldId.",".$parentId.",'".$childName."',".$childCntType.",'".$childImgPath."','".$childFrameData."',".$animated.",'".$animationType."','".$animationPathCord."','".$delaySlideTime."','".$ext."','".$childCretedDte."','".$childUpdtedDte."')";
+			echo $query;
 			$result = mysql_query($query)or die(mysql_error());
 			
 			//------------------------------------------------------------------------------------------------------//
@@ -298,7 +316,7 @@
 			$chldspeDisp	.=	"<td>:</td>";
 			$chldspeDisp	.=	"<td>
 									<select name='chldCntSel' id='chldCntSel' onchange='return displyChdCont($this->childNo)'>
-										<option value=''>Select</option>
+										<option value='0'>Select</option>
 										<option value='1'>Text</option>
 										<option value='2'>Image</option>
 									</select>
