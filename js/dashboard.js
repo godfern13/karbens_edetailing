@@ -1,7 +1,4 @@
-$(function(){
-
-	
-				
+$(function(){	
 	//SAVE PRESENTAION
 	$("#prestnBtn").click(function() {
 		var flag = true;
