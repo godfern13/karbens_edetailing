@@ -61,10 +61,12 @@
 										<li style="margin:10px 0 0 0;">Name your Slide<li>
 										<li style="margin:10px 0 0 0;">:<li>
 										<li>
-											<input type="text" id="slideName" name="slideName" class="popupTextbox">
+											<input type="text" id="slideName" name="slideName" class="popupTextbox" onkeyup="checkSlide()">
+											<span id="errormsg" style=" margin: 0 0 0 58px;"></span>
 										<li>
 										<li style="width:100%;">
 											<input type="button" value="Create" id="slideBtn" name="slideBtn" class="popupBtn">
+											<input type="hidden" id="valD" name="valD">
 										</li>
 									</ul>
 								</div>

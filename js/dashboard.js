@@ -1,3 +1,34 @@
+function checkPresention(){
+	var name 		= $.trim($('input#prestnName').val());
+	var id 			= $.trim($('input#cat_id').val());
+	var submitFlag	= 5;
+	var data 	= 'presntnName=' + name + '&presntnId=' + id + '&queryFlag=' + submitFlag;
+	
+	$.ajax({
+		type: "POST",
+		url: "Ajax/presentnSubmit.php",
+		data: data,
+		success: function(data){ // this happen after we get result
+		
+			if(data == -1){
+				$('#errormsg').html();
+				$('input#valD').val('0');
+				$('#errormsg').hide();
+				
+			} else {				
+				$('#errormsg').css({ display: "block" });
+				$('#errormsg').html(data);
+				$("#prestnName").focus();
+				$("#prestnName").css("borderColor", "#ff0000");
+				$('input#valD').val('1');
+				flag = false;
+				return false;
+			}
+		}
+	});	
+}
+
+
 $(function(){	
 	//SAVE PRESENTAION
 	$("#prestnBtn").click(function() {
@@ -5,6 +36,15 @@ $(function(){
 		var name = $.trim($('#prestnName').val());
 		if(name == ''){
 			alert('enter presentation name');
+			flag = false;
+		}
+		
+		var checkedname = $.trim($('input#valD').val());
+		if(checkedname == 1){
+			$("#prestnName").css("borderColor", "#ff0000");
+			$("#errormsg").show();
+			$('#errormsg').text(name + " already exist");
+			$("#prestnName").focus();
 			flag = false;
 		}
 		

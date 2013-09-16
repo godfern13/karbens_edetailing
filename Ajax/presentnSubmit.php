@@ -10,14 +10,14 @@
 	
 	$submitType = $_POST['queryFlag'];
 	
-	if($submitType == 0)//Adding Slides
+	if($submitType == 0)//Adding Presentation
 	{
 		$generalObj = new general();
 		$table_name	= 'content';
 		$table_col	= 'id';
-		$contentId		= $generalObj->getPK($table_name,$table_col);
-		
+		$contentId	= $generalObj->getPK($table_name,$table_col);		
 		$name 		= $_POST['pName'];
+		
 		$contentId 	= $db->storePresentaions($contentId,$name);
 		//echo 'data:'.$contentId;
 		if ($contentId != false){
@@ -61,6 +61,21 @@
 		$name			= $row['name'];
 		
 		$callshare	= sendShareMail($emailId,$name);		
+	}
+
+	if($submitType == 5)//Checking for Presentations name
+	{
+		$id 				= $_POST['presntnId'];
+		$name 				= $_POST['presntnName'];
+		$checkPresentnName 	= $db->check_presentation($id,$name);
+		if($checkPresentnName == 0 ){
+			//Presentation name not found
+			echo '-1';
+		}
+		else{
+			//Presentation name found
+			echo "<img src='images/unavailable.png' title='Please choose another presentation name'></img>";
+		}
 	}	
 ?>
 

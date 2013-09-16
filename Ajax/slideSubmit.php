@@ -1,32 +1,49 @@
 <?php 
 	require_once "../classes/csGeneral.php";
+	include_once '../classes/db_functions.php';
 	require_once "../library/dbcon.php";
 	require_once "../library/functions.php";
 	sessionCheck();
 	
-	$generalObj = new general();
-	$table_name	= 'parent';
-	$table_col	= 'id';
-	$prntId		= $generalObj->getPK($table_name,$table_col);
+	//Creating object of DB_Functions Class
+	$db = new DB_Functions();
 	
-	$contentId 	= $_POST['c_id'];
-	$name 		= $_POST['sName'];
+	$submitType = $_POST['queryFlag'];
 	
-	$query 	= "	INSERT INTO parent(id,content_id,name)VALUES(".$prntId.",".$contentId.",'".$name."')";
-	
-	//echo $query;
-	$result = mysql_query($query)or die(mysql_error());
-	$error 	= mysql_error() != '' ? true : false;
-
-	if($error)
+	if($submitType == 0)//Adding Slides
 	{
-		return false;
-	}
-	else{
-		echo $prntId;
+		$generalObj = new general();
+		$table_name	= 'parent';
+		$table_col	= 'id';
+		$prntId		= $generalObj->getPK($table_name,$table_col);
+		
+		$contentId 	= $_POST['c_id'];
+		$name 		= $_POST['sName'];
+		
+		$parentId 	= $db->storeSlide($prntId,$contentId,$name);
+		//echo 'data:'.$parentId;
+		if ($parentId != false){
+			echo $parentId;
+		}
+		else{
+            echo 'Error';
+		}
 	}
 	
-	//header('Location:../add_slide.php');
+	if($submitType == 5)//Checking for Presentations name
+	{
+		$id 				= $_POST['slideId'];
+		$name 				= $_POST['slideName'];
+		$checkPresentnName 	= $db->check_slide($id,$name);
+		if($checkPresentnName == 0 ){
+			//Slide name not found
+			echo '-1';
+		}
+		else{
+			//Slide name found
+			echo "<img src='images/unavailable.png' title='Please choose another slide name'></img>";
+		}
+	}
 	
 ?>
 

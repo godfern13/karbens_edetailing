@@ -19,7 +19,7 @@ class DB_Functions {
     }
 
     /**
-     * Storing new presentations
+     * Adding new presentations
      * 
      */
     public function storePresentaions($contentId, $name) {
@@ -62,6 +62,45 @@ class DB_Functions {
 	}
 	
 	/**
+	*Checking Presentation Name
+	*/	
+	public function check_presentation($id,$name){
+		
+		$contentId = $id;
+		if($contentId == ''){
+			$query 	= "	SELECT content.id FROM content WHERE content.name='".$name."' AND content.del_flag = 0";
+			$result = mysql_query($query)or die(mysql_error());
+			$nums	= mysql_num_rows($result);
+			return $nums;
+		}
+		else{
+			$query 	= "	SELECT content.id FROM content WHERE content.name='".$name."' AND content.id !=".$contentId." AND content.del_flag = 0";
+			$result = mysql_query($query)or die(mysql_error());
+			$nums	= mysql_num_rows($result);
+			return $nums;		
+		}
+	}
+	
+	/**
+     * Adding new Slides
+     * 
+     */
+    public function storeSlide($contentId, $name) {
+        // insert content into database
+		$query 	= "	INSERT INTO parent(id,content_id,name)VALUES(".$prntId.",".$contentId.",'".$name."')";
+		$result = mysql_query($query)or die(mysql_error());
+		if ($result) {
+            // get content details
+            $id = mysql_insert_id(); // last inserted id
+			return $id;
+		}
+		else {
+            return false;
+        }
+	}
+	
+	
+	/**
      * Getting Slide details
      */
     public function getSlides($id) {
@@ -69,6 +108,26 @@ class DB_Functions {
         $result = mysql_query($query)or die(mysql_error());
         return $result;
     }
+	
+	/**
+	*Checking Slide Name
+	*/	
+	public function check_slide($id,$name){
+		
+		$parentId = $id;
+		if($parentId == ''){
+			$query 	= "	SELECT parent.id FROM parent WHERE parent.name='".$name."' AND parent.del_flag = 0";
+			$result = mysql_query($query)or die(mysql_error());
+			$nums	= mysql_num_rows($result);
+			return $nums;
+		}
+		else{
+			$query 	= "	SELECT parent.id FROM parent WHERE parent.name='".$name."' AND parent.id !=".$parentId." AND parent.del_flag = 0";
+			$result = mysql_query($query)or die(mysql_error());
+			$nums	= mysql_num_rows($result);
+			return $nums;		
+		}
+	}
 
     /**
      * Get user profile details

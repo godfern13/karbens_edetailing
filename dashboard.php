@@ -51,14 +51,15 @@
 						<div id="popup_content">
 							<div id="presentnForm" class="popupForm">
 								<ul>
-									<li style="margin:10px 0 0 0;">Name your presentation<li>
-									<li style="margin:10px 0 0 0;">:<li>
+									<li style="margin:10px 0 0 0;">Name your presentation</li>
+									<li style="margin:10px 0 0 0;">:</li>
 									<li>
-										<input type="text" id="prestnName" name="prestnName" class="popupTextbox">
-									<li>
+										<input type="text" id="prestnName" name="prestnName" class="popupTextbox" onkeyup="checkPresention()">
+										<span id="errormsg" style=" margin: 0 0 0 120px;"></span>
+									</li>
 									<li style="width:100%;">
 										<input type="button" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
-										<input type="hidden" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
+										<input type="hidden" id="valD" name="valD">
 									</li>
 								</ul>
 							</div>

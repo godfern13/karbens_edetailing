@@ -82,6 +82,10 @@ jQuery(function($) {
 	function disablePopup() {
 		if(popupStatus == 1) { // if value is 1, close popup
 			$('#prestnName').val('');
+			$("#prestnName").css("borderColor", "");
+			$('#slideName').val('');
+			$("#slideName").css("borderColor", "");
+			$('#errormsg').hide();
 			$("#sharePopup").fadeOut("normal");
 			$("#toPopup").fadeOut("normal");
 			$("#backgroundPopup").fadeOut("normal");
