@@ -1,5 +1,6 @@
 <?php 
 	require_once "library/functions.php";
+	include("classes/classes.php");
 	sessionCheck();
 	
 	if(!(isset($_SESSION["msg"]))){
@@ -7,13 +8,14 @@
 	}
 	
 	$presnt_id = base64_decode($_GET['id']);
-	// session_start();
-	 include("classes/classes.php");
+		 
 	 $addContentObj = new contentClass();
 	 $contentCnt  = $addContentObj->getContentCount();
 	 $addContentObj->addToContentArray($contentCnt);
 	 $_SESSION['contentCnt'] = $contentCnt;
 	 $_SESSION['contentObject'.$contentCnt] = serialize($addContentObj);
+	 
+	 
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,7 +30,7 @@
 				min-height:463px;
 				width:100%;
 				text-align:center;
-				padding: 50px 0 0;
+				padding: 0px 0 0;
 			}
 		</style>
 		

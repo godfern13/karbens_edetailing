@@ -369,15 +369,16 @@ function slideSaveCall()
 	
 	var dataStrng	=	'chldCunter='+chldCunter + '&parent_id=' + prntId;
 	
-    alert(dataStrng)
+   // alert(dataStrng)
 	$.ajax({
 		type: "POST",
 		url: "Ajax/saveSlideProcess.php",
 		cache: false,
 		data:dataStrng,
 		success: function(data) { 
-			alert("Presentation Slide Added Sucessfully");
-			setTimeout("window.location='add_slide.php?id="+btoa(prntId)+"'",1000);
+			//alert("Presentation Slide Added Sucessfully");
+			alert(data);
+			setTimeout("window.location='slide.php?id="+btoa(data)+"'",1000);
 		}
 	});
 }

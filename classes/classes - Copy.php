@@ -4,7 +4,7 @@
 	************************************************************************************************************/
 	class contentClass
 	{
-		private $id;/*Added*/
+		public $id;/*Added*/
 		private $name;
 		private $addedDate;
 		private $updatedDate;
@@ -12,22 +12,10 @@
 		private $contentCunt;
 		private $parents 	= 	array();
 		private $content	=	array();
-		
-		function  __construct()
+		function  _construct()
 		{
-			
-		}
-				
-		//Getters and Setters Methods
-		public function getId() {
-			return $this->id;
-		}
 		
-		public function setId($x) {
-			$this->id = $x;
-			
 		}
-		
 		//---------------------------------- Function To Add & Get && Update Content Count -------------------------------------//
 		public function addToContentArray($content)
 		{

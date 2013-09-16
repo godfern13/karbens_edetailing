@@ -80,7 +80,7 @@
 </script>
 
 <div id="headerDiv">
-	<div style="width:100%;height:35px;background:#A9A9A9;float:left;text-align:center; font: 28px tahoma;">e-Detailer</div>
+	<div style="width:100%;height:60px;background:#000000;float:left;text-align:center; font: 28px tahoma;color:#54BCE7;">e-Detailer</div>
 	<!--<div id="header-top-div">
 	<?php	
 		
@@ -96,7 +96,7 @@
 		} */
     ?>	
 	</div>-->
-	<div style="width:100%;height:85px;background:#F6F6F6;float:left;">
+	<div style="width:100%;height:35px;background:#F6F6F6;float:left;">
 		<?if (isset($_SESSION["userId"]) )
 			{	?>
 		 <dl id="sample" class="dropdown" style="float:right;margin:  5px 75px 0 0;">
@@ -104,7 +104,7 @@
 			<dd>
 				<ul>
 					<li><a href="dashboard.php">Dashboard</a></li>
-					<li><a href="#">Profile</a></li>
+					<li><a href="profile.php">Profile</a></li>
 					<li><a href="logout.php">Logout<img class="flag" src="de.png" alt="" /><span class="value">DE</span></a></li>
 					
 				</ul>

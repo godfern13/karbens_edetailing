@@ -4,6 +4,9 @@
 	require_once("../classes/csGeneral.php");
 	
 	include("../classes/classes.php");
+	
+	$prnt_id = $_POST['parent_id'];
+	
 	$childCunter	=	$_POST['chldCunter'];
 	$contentCnt		=	$_SESSION['contentCnt'];
 	$addParentObj 	=   unserialize($_SESSION['contentObject'.$contentCnt]);
@@ -16,5 +19,5 @@
 		$chldSpecObj 	= 	unserialize($_SESSION['childObject'.$i]);
 		$chldData		.=	$chldSpecObj->saveChildData();
 	}
-	echo $chldData;
+	echo $prnt_id;
 ?>

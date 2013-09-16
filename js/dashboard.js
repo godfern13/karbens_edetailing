@@ -1,5 +1,7 @@
 $(function(){
+
 	
+				
 	//SAVE PRESENTAION
 	$("#prestnBtn").click(function() {
 		var flag = true;
@@ -8,24 +10,28 @@ $(function(){
 			alert('enter presentation name');
 			flag = false;
 		}
-		var submitFlag = 0;
-		var data = '&pName=' + name + '&queryFlag=' + submitFlag;
-		//alert(data);
-		$.ajax({
-		url: 'Ajax/presentnSubmit.php',
-		type: 'POST',
-		data: data,
-		cache: false,
-		success: function(data){
-			if(data == -1){
-				$('#succesMsg').html('Error');
-			} else if(data){
-				$('#succesMsg').html(data).fadeOut();
-				setTimeout("window.location='add_slide.php?id="+btoa(data)+"'",1000);
-				$('#prestnName').val('');
+		
+		if(flag == true){
+			var submitFlag = 0;
+			var data = '&pName=' + name + '&queryFlag=' + submitFlag;
+			//alert(data);
+			$.ajax({
+			url: 'Ajax/presentnSubmit.php',
+			type: 'POST',
+			data: data,
+			cache: false,
+			success: function(data){
+				if(data == -1){
+					$('#succesMsg').html('Error');
+				} else if(data){
+					$('#succesMsg').html(data).fadeOut();
+					setTimeout("window.location='add_slide.php?id="+btoa(data)+"'",1000);
+					//setTimeout("window.location='add_slide.php'");
+					$('#prestnName').val('');
+				}
 			}
+			});
 		}
-		});
 	
 	});
 		
@@ -48,11 +54,7 @@ function publishPresntn(id,msg,status){
 			data: data,
 			success: function()
 				{
-				//$('#prsntn').hide(function(this.id));
-				//alert(data);
-				//$("#pgErrormsg").val(data);
-				//$("#pgErrormsg").fadeOut(1500);
-				setTimeout("window.location='dashboard.php'");
+					setTimeout("window.location='dashboard.php'");
 				},
 			error: function(request, status, error)
 				{
@@ -89,11 +91,7 @@ function delPresntn(id,pubState){
 			data: data,
 			success: function()
 				{
-				//$('#prsntn').hide(function(this.id));
-				//alert(data);
-				//$("#pgErrormsg").val(data);
-				//$("#pgErrormsg").fadeOut(1500);
-				setTimeout("window.location='dashboard.php'");
+					setTimeout("window.location='dashboard.php'");
 				},
 			error: function(request, status, error)
 				{

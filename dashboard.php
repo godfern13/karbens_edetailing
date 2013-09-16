@@ -19,7 +19,7 @@
 				min-height:463px;
 				width:100%;
 				text-align:center;
-				padding: 50px 0 0;
+				padding: 0px 0 0;
 			}
 		</style>
 		
@@ -27,6 +27,7 @@
 		<script src="script/popup.js" type="text/javascript"></script>
 		<script src="js/dashboard.js" type="text/javascript"></script>
 		<script src="js/loadDashboard.js" type="text/javascript"></script>
+		
 		
 		
 	</head>
