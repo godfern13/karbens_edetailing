@@ -16,7 +16,10 @@ $(document).ready(function(){
 		containment: 'frame',
 		/*--------------------------------------- first time drag -----------------------------------------------*/
 		stop:function(ev, ui) { 
-			
+			/********** CHANGE 17/09/2013 START **************************/
+			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
+			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
+			/********** CHANGE 17/09/2013 END **************************/
 			var pos=$(ui.helper).offset();
 			objName = "#clonediv"+counter
 			$(objName).css({"left":pos.left,"top":pos.top});
@@ -25,7 +28,7 @@ $(document).ready(function(){
 			$(objName).addClass("drsMoveHandle");
 			
 			/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
-				var cordData = calCordinates(parentX,parentY,counter);
+				var cordData = calCordinates(parentX,parentY,counter,childType);
 		}
 	});
 	
@@ -44,20 +47,19 @@ $(document).ready(function(){
 		 if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
 		};
 	
-		dragresize.ondragfocus = function() { };
-		dragresize.ondragstart = function(isResize) { };
+		//dragresize.ondragfocus = function() { };
+		//dragresize.ondragstart = function(isResize) { 
 		dragresize.ondragmove = function(isResize) { 
-		
 			var width	=	$("#clonediv"+counter).width();
 			var height	=	$("#clonediv"+counter).height();
 			$("#chldImg"+counter).attr({width: width});
 			$("#chldImg"+counter).attr({height: height});
-			calCordinates(parentX,parentY,counter);
 		};
 		dragresize.ondragend = function(isResize) { 
-			calCordinates(parentX,parentY,counter);
+			var childType	=	$('#chidTyPE'+counter).val();
+			calCordinates(parentX,parentY,counter,childType);
 		};
-		dragresize.ondragblur = function() { };
+		//dragresize.ondragblur = function() { };
 		
 		dragresize.apply(document);
 	
@@ -65,6 +67,11 @@ $(document).ready(function(){
 	$("#frame").droppable({ 
 		drop: function(ev, ui) { 
 			if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
+				/********** CHANGE 17/09/2013 START **************************/
+				if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
+				else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
+				/********** CHANGE 17/09/2013 END **************************/
+			
 				counter++;
 				var element=$(ui.draggable).clone();
 				element.addClass("tempclass");
@@ -73,7 +80,7 @@ $(document).ready(function(){
 				$("#clonediv"+counter).removeClass("tempclass");
 				/*---------------------------------- Get the dynamically item id -------------------------------*/
 				draggedNumber = ui.helper.attr('id').search(/drag([0-9])/)
-				itemDragged = "dragged" + RegExp.$1
+				itemDragged = "dragged1"
 				console.log(itemDragged)
 				$("#clonediv"+counter).addClass(itemDragged);
 				//var cordData = calCordinates(parentX,parentY,counter);
@@ -198,7 +205,7 @@ function ParntBgImgURL(upload_field) {
 *********************************************************************************************************************/
 
 /*----------------------------------- Get Child Cordinates Function ---------------------------------*/
-function calCordinates(parentX,parentY,counter)
+function calCordinates(parentX,parentY,counter,childType)
 {	
 	$("#clonediv"+counter).click(function(){showChildSpec(counter)});
 	var offset 	= 	$("#clonediv"+counter).offset();
@@ -211,17 +218,17 @@ function calCordinates(parentX,parentY,counter)
 	var	insideY2	=	parseFloat(insideY1)+parseFloat(height);
 	var corData	=	("(x1,y1) => "+insideX1+","+insideY1 +" || (x2,y1)==>" +insideX2+","+insideY1 +" || (x1,y2)==>" +insideX1+","+insideY2 +" || (x2,y2)==>" +insideX2+","+insideY2);
 	$("#div_id").data("data",{pX:parentX,pY:parentY,cX:insideX1,cY:insideY1,cW:width,cH:height});
-	addChildSpec(width,height,counter,insideX1,insideY1);
+	addChildSpec(width,height,counter,insideX1,insideY1,childType);
 	
 	$("#chldImg"+counter).attr({width: width});
-			$("#chldImg"+counter).attr({height: height});
+	$("#chldImg"+counter).attr({height: height});
 	return corData;
 	
 }
 /*----------------------------------------- Add Child Specification ----------------------------------------------*/
-function addChildSpec(childWdth,childHeght,counter,chldX,chldY)
+function addChildSpec(childWdth,childHeght,counter,chldX,chldY,childType)
 {  
-	var childType		=	$('select#chldCntSel').val();
+	//var childType		=	$('select#chldCntSel').val();
 	var childImgPath	=	$('input#chldImgName').val();
 	var childText		=	$('textarea#chldTxt').val();
 	var dataString	=	'childWdth='+childWdth+'&childHght='+childHeght+'&chldCnt='+counter+'&chldX='+chldX+'&chldY='+chldY+'&childType='+childType+'&childImgPath='+childImgPath+'&childText='+childText;
@@ -238,7 +245,7 @@ function addChildSpec(childWdth,childHeght,counter,chldX,chldY)
 	});
 }
 /*------------------------------------- On Change Function ----------------------------------------------*/
-function chngChldSpec(chldCunt)
+function chngChldSpec(chldCunt,childType)
 {	
 	var childWdth	=	parseFloat($('input#chldWdth').val());
 	$("#clonediv"+chldCunt).css("width",childWdth);
@@ -251,7 +258,7 @@ function chngChldSpec(chldCunt)
 	var childX	=	parseFloat($('input#childX').val());
 	var childY	=	parseFloat($('input#childY').val());
 	
-	var childType		=	$('select#chldCntSel').val();
+	//var childType		=	$('select#chldCntSel').val();
 	var childText		=	$('textarea#chldTxt').val();
 	var childImgPath	=	$('input#chldImgName').val();
 	
@@ -284,7 +291,7 @@ function showChildSpec(counter)
 /*----------------------------------- ----------------------------------------------------------*/
 function displyChdCont(counter)
 {
-	var chldCntSel = $('select#chldCntSel').val();
+	/*var chldCntSel = $('select#chldCntSel').val();
 	if(chldCntSel == '1')
 	{
 		$('#chldTxtCnt').show();
@@ -299,15 +306,16 @@ function displyChdCont(counter)
 	{
 		$('#chldTxtCnt').hide();
 		$('#chldImgCnt').hide();
-	}
+	}*/
 }
-function changeChildText(counter)
+function changeChildText(chldCunt,childType)
 {	
 	var childText	=	$('textarea#chldTxt').val();
-	$("#clonediv"+counter).html(childText);
+	$("#clonediv"+chldCunt).html(childText);
+	chngChldSpec(chldCunt,childType);
 }
 /*------------------------------------------- Set Image To Child Background --------------------------------*/
-function ChldBgImgURL(upload_field,chldCunt) { 
+function ChldBgImgURL(upload_field,chldCunt,childType) { 
 	if (upload_field.files && upload_field.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function (e) { 
@@ -350,7 +358,7 @@ function ChldBgImgURL(upload_field,chldCunt) {
 	upload_field.form.action = '';
 	upload_field.form.target = '';
 	document.getElementById('chldImgName').value = filename;
-	chngChldSpec(chldCunt);
+	chngChldSpec(chldCunt,childType);
 }
 /********************************************************************************************************************
 											CHILD FUNCTION ENDS

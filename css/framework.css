@@ -31,14 +31,28 @@ body {
     border:1px solid black;
     float:left;
 }
+/********************** Change 17/09/2013 START************************/
 #drag1 {
 	margin-left:15px;
 	margin-top:15px;
-	width:120px;
-	height:80px;
+	width:60px;
+	height:60px;
+	float:left;
 	border:1px solid #000;
-	/*background:#fff;*/
+	color:#fff;
+	text-align:center;
 }
+#drag2 {
+	margin-left:15px;
+	margin-top:15px;
+	width:60px;
+	height:60px;
+	float:left;
+	border:1px solid #000;
+	color:#fff;
+	text-align:center;
+}
+/********************** Change 17/09/2013 END************************/
 .ui-draggable-helperMoving {
 	border: 1px dotted #000;
 	padding: 6px;

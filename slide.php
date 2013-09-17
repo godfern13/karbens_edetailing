@@ -180,7 +180,10 @@
 				</div>
 				<div id="options">
 					<iframe name="upload_iframe" id="upload_iframe" style="display:none;"></iframe>
-					<div id="drag1" class="drag"></div>
+					<!-- Change 17 / 09 / 2013 START-->
+					<div id="drag1" class="drag">Text</div>
+					<div id="drag2" class="drag">Image</div>
+					<!-- Change 17 / 09 / 2013 END-->
 				</div>
 			</div>
 		</div>

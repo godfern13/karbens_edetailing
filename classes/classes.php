@@ -293,13 +293,13 @@
 			$chldspeDisp	.=	"<tr>";
 			$chldspeDisp	.=	"<td>Width</td>";
 			$chldspeDisp	.=	"<td>:</td>";
-			$chldspeDisp	.=	"<td><input type='text' name='chldWdth' id='chldWdth' onchange='return chngChldSpec($this->childNo)' value='".$this->chldWdth."'/></td>";
+			$chldspeDisp	.=	"<td><input type='text' name='chldWdth' id='chldWdth' onchange='return chngChldSpec($this->childNo,$this->childCntType)' value='".$this->chldWdth."'/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
 			$chldspeDisp	.=	"<tr>";
 			$chldspeDisp	.=	"<td>Height</td>";
 			$chldspeDisp	.=	"<td>:</td>";
-			$chldspeDisp	.=	"<td><input type='text' name='chldHght' id='chldHght' onchange='return chngChldSpec($this->childNo)' value='".$this->chldHght."'/></td>";
+			$chldspeDisp	.=	"<td><input type='text' name='chldHght' id='chldHght' onchange='return chngChldSpec($this->childNo,$this->childCntType)' value='".$this->chldHght."'/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
 			$chldspeDisp	.=	"<tr>";
@@ -314,32 +314,50 @@
 			$chldspeDisp	.=	"<td><input type='text' name='childY' id='childY' value='".$this->childY."' readonly/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
-			$chldspeDisp	.=	"<tr>";
-			$chldspeDisp	.=	"<td>Content</td>";
-			$chldspeDisp	.=	"<td>:</td>";
-			$chldspeDisp	.=	"<td>
-									<select name='chldCntSel' id='chldCntSel' onchange='return displyChdCont($this->childNo)'>
-										<option value='0'>Select</option>
-										<option value='1'>Text</option>
-										<option value='2'>Image</option>
-									</select>
-								</td>";
-			$chldspeDisp	.=	"</tr>";
-			$chldspeDisp	.=	"<tr height='5px'></tr>";
-			$chldspeDisp	.=  "<tr id='chldTxtCnt' style='display:none'>";
-			$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
-									<textarea name='chldTxt' id='chldTxt' onchange='return changeChildText($this->childNo)'>$this->childText</textarea>
-								</td>";
-			$chldspeDisp	.=	"</tr>";
-			$chldspeDisp	.=	"<tr height='5px'></tr>";
-			$chldspeDisp	.=  "<tr id='chldImgCnt' style='display:none'>";
-			$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
-									<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
-									<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo)'/>
-									<input type='text' name='chldImgName' id='chldImgName' value='".$this->childImgPath."' /></form>
-								</td>";
-			$chldspeDisp	.=	"</tr>";
-			$chldspeDisp	.=	"</table>";
+			/************************** CHANGE 17/09/2013 START***************************/
+			if($this->childCntType == 1)
+			{ 
+				$chldspeDisp	.=  "<tr id='chldTxtCnt'>";
+				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+										<textarea name='chldTxt' id='chldTxt' onchange='return changeChildText($this->childNo,$this->childCntType)'>$this->childText</textarea>
+									</td>";
+				$chldspeDisp	.=	"</tr>";
+			}
+			else if($this->childCntType == 2){ 
+				$chldspeDisp	.=  "<tr id='chldImgCnt'>";
+				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+										<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
+										<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo,$this->childCntType)'/>
+										<input type='hidden' name='chldImgName' id='chldImgName' value='".$this->childImgPath."' /></form>
+									</td>";
+				$chldspeDisp	.=	"</tr>";
+			}
+			else{
+				/*$chldspeDisp	.=	"<td>
+										<select name='chldCntSel' id='chldCntSel' onchange='return displyChdCont($this->childNo)'>
+											<option value=''>Select</option>
+											<option value='1'>Text</option>
+											<option value='2'>Image</option>
+										</select>
+									</td>";
+				$chldspeDisp	.=	"</tr>";
+				$chldspeDisp	.=	"<tr height='5px'></tr>";
+				$chldspeDisp	.=  "<tr id='chldTxtCnt' style='display:none'>";
+				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+										<textarea name='chldTxt' id='chldTxt' onchange='return changeChildText($this->childNo)'>$this->childText</textarea>
+									</td>";
+				$chldspeDisp	.=	"</tr>";
+				$chldspeDisp	.=	"<tr height='5px'></tr>";
+				$chldspeDisp	.=  "<tr id='chldImgCnt' style='display:none'>";
+				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+										<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
+										<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo)'/>
+										<input type='text' name='chldImgName' id='chldImgName' value='".$this->childImgPath."' /></form>
+									</td>";
+				$chldspeDisp	.=	"</tr>";*/
+			}
+			/************************** CHANGE 17/09/2013 END***************************/
+			$chldspeDisp	.=	"</table><input type='text' id='chidTyPE$this->childNo' value='$this->childCntType' />";
 			
 			return $chldspeDisp;
 		}
