@@ -4,7 +4,6 @@
 	************************************************************************************************************/
 	class contentClass
 	{
-		private $id;/*Added*/
 		private $name;
 		private $addedDate;
 		private $updatedDate;
@@ -18,16 +17,7 @@
 			
 		}
 				
-		//Getters and Setters Methods
-		public function getId() {
-			return $this->id;
-		}
-		
-		public function setId($x) {
-			$this->id = $x;
 			
-		}
-		
 		//---------------------------------- Function To Add & Get && Update Content Count -------------------------------------//
 		public function addToContentArray($content)
 		{

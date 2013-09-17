@@ -32,19 +32,20 @@ if($actionFlag == 0 || $actionFlag == 1){
 	
 	//#INSERT
 	if($actionFlag == 0){
-	
 		$userUsername	= trim($_POST['username']);
-		$userPassword	= trim($_POST['pswd']);
-		
+		$userPassword	= trim($_POST['pswd']);		
 		$password		= $generalObj->encrypt($userPassword ); 
 			
 				$id = $generalObj->getPK('users','id');
-				$query = "INSERT INTO users(id,name,username,password,country,state,city,contact,email_id,u_type,added_on)
-							VALUES(".$id.",'".$fullname."','".$userUsername ."','".$password."','".$userCountry."','".$userState."','".$userCity."',".$userContact.",'".$userEmail ."',".$userType.",current_timestamp)";
-				echo $query;
-				$result = mysql_query($query) or die('Error in connection'.mysql_error());
-				
+				$query1				= "	INSERT INTO users(id,name,username,password,country,state,city,contact,email_id,u_type,added_on)
+										VALUES(".$id.",'".$fullname."','".$userUsername ."','".$password."','".$userCountry."','".$userState."','".$userCity."',".$userContact.",'".$userEmail ."',".$userType.",current_timestamp)";
+				$result 			= mysql_query($query1) or die('Error in connection'.mysql_error());
+				$userId				= mysql_insert_id();
 				$_SESSION['errmsg'] = 'New User Added';
+				
+				$brandId			= 1;
+				$query2				= "INSERT INTO user_vs_brands(user_id,brand_id)VALUES(".$userId.",".$brandId.")";
+				$result 			= mysql_query($query2) or die('Error in connection'.mysql_error());			
 				
 				header('Location:../add_user.php');
 	}

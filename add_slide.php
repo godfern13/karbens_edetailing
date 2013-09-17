@@ -46,7 +46,7 @@
 			<div id="mainWrapper">
 				<div id="container">
 					<!--<h2>Welcome To The dashboard</h2>-->
-					<div id="prsntnMenu">
+					<div id="menu">
 						<?if($_SESSION["msg"]!=''){?>
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>

@@ -1,49 +1,5 @@
 $(document).ready(function(){
 
-
-
-/*-----------------------------------------Resize Element---------------------------------------------*/
-
-/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
-		var dragresize = new DragResize('dragresize', { minWidth: 50, minHeight: 50, minLeft: 20, minTop: 20, maxLeft: 600, maxTop: 600 });
-		
-		/*-------------------------Rectangle Script----------------------------*/
-		dragresize.isElement = function(elm)
-		{
-		 if (elm.className && elm.className.indexOf('drsTextElement') > -1) return true;
-		};
-		dragresize.isHandle = function(elm)
-		{
-		 if (elm.className && elm.className.indexOf('drsMoveRectHandle') > -1) return true;
-		};
-		
-		/*--------------------------Text Script------------------------------------*/
-		dragresize.isElement = function(elm)
-		{
-		 if (elm.className && elm.className.indexOf('drsTextElement') > -1) return true;
-		};
-		dragresize.isHandle = function(elm)
-		{
-		 if (elm.className && elm.className.indexOf('drsMoveTextHandle') > -1) return true;
-		};
-		
-		dragresize.ondragfocus = function() { };
-		dragresize.ondragstart = function(isResize) { };
-		dragresize.ondragmove = function(isResize) { };
-		dragresize.ondragend = function(isResize) { };
-		dragresize.ondragblur = function() { };
-		
-		dragresize.apply(document);
-
-
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------------------------*/
-
 	$("#frame").click(function(){showParSpec()});
 	var offset2 = $("#frame").offset();
 	var w = $(window);
@@ -60,26 +16,51 @@ $(document).ready(function(){
 		containment: 'frame',
 		/*--------------------------------------- first time drag -----------------------------------------------*/
 		stop:function(ev, ui) { 
+			
 			var pos=$(ui.helper).offset();
 			objName = "#clonediv"+counter
 			$(objName).css({"left":pos.left,"top":pos.top});
 			$(objName).removeClass("drag");
-			/*------------------------------------------- drag element within the frame --------------------------------*/
-			$(objName).draggable({
-				containment: 'parent',
-				stop:function(ev, ui) { 
-					var pos=$(ui.helper).offset();
-					console.log($(this).attr("id"));
-					console.log(pos.left)
-					console.log(pos.top);
-					/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
-					var cordData = calCordinates(parentX,parentY,counter);
-				}
-			});
-			/*------------------------------------Function To Get Cordinates ---------------------------------------------*/
-			var cordData = calCordinates(parentX,parentY,counter);
+			$(objName).addClass("drsElement");
+			$(objName).addClass("drsMoveHandle");
+			
+			/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
+				var cordData = calCordinates(parentX,parentY,counter);
 		}
 	});
+	
+	
+	
+	/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
+		var dragresize = new DragResize('dragresize', {minLeft: 186, maxLeft: 835,minTop: 52,maxTop: 600 });
+		
+		/*-------------------------Rectangle Script----------------------------*/
+		dragresize.isElement = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsElement') > -1) return true;
+		};
+		dragresize.isHandle = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
+		};
+	
+		dragresize.ondragfocus = function() { };
+		dragresize.ondragstart = function(isResize) { };
+		dragresize.ondragmove = function(isResize) { 
+		
+			var width	=	$("#clonediv"+counter).width();
+			var height	=	$("#clonediv"+counter).height();
+			$("#chldImg"+counter).attr({width: width});
+			$("#chldImg"+counter).attr({height: height});
+			calCordinates(parentX,parentY,counter);
+		};
+		dragresize.ondragend = function(isResize) { 
+			calCordinates(parentX,parentY,counter);
+		};
+		dragresize.ondragblur = function() { };
+		
+		dragresize.apply(document);
+	
 	/*------------------------------------------ drop an element function -----------------------------------------------*/
 	$("#frame").droppable({ 
 		drop: function(ev, ui) { 
@@ -87,7 +68,6 @@ $(document).ready(function(){
 				counter++;
 				var element=$(ui.draggable).clone();
 				element.addClass("tempclass");
-				element.addClass("drsTextElement");
 				$(this).append(element);
 				$(".tempclass").attr("id","clonediv"+counter);
 				$("#clonediv"+counter).removeClass("tempclass");
@@ -232,6 +212,9 @@ function calCordinates(parentX,parentY,counter)
 	var corData	=	("(x1,y1) => "+insideX1+","+insideY1 +" || (x2,y1)==>" +insideX2+","+insideY1 +" || (x1,y2)==>" +insideX1+","+insideY2 +" || (x2,y2)==>" +insideX2+","+insideY2);
 	$("#div_id").data("data",{pX:parentX,pY:parentY,cX:insideX1,cY:insideY1,cW:width,cH:height});
 	addChildSpec(width,height,counter,insideX1,insideY1);
+	
+	$("#chldImg"+counter).attr({width: width});
+			$("#chldImg"+counter).attr({height: height});
 	return corData;
 	
 }
@@ -328,10 +311,26 @@ function ChldBgImgURL(upload_field,chldCunt) {
 	if (upload_field.files && upload_field.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function (e) { 
+			var img = new Image();
 			var chldWdth	=	$('#chldWdth').val();
 			var chldHght	=	$('#chldHght').val();
-			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" width="'+chldWdth+'" height="'+chldHght+'"/>';
+			//$('chldImg'+chldCunt).addClass('source-image');
+			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image" />';
+			//var result = setImageSize(chldCunt,)
 			$('#clonediv'+chldCunt).html(ImgTag);
+			$("#chldImg"+chldCunt).attr({width: chldWdth});
+			$("#chldImg"+chldCunt).attr({height: chldHght});
+			
+			
+			
+			
+			//$('#clonediv'+chldCunt).css('background-image','url(' + e.target.result + ')');
+			/*$('#clonediv'+chldCunt).css({
+			'backgroundImage': 'url(' + e.target.result + ')',
+			'backgroundRepeat': 'no-repeat',
+			'backgroundPosition': 'top center'
+			});*/
+			
 		};
 		reader.readAsDataURL(upload_field.files[0]);
 	}
@@ -356,6 +355,10 @@ function ChldBgImgURL(upload_field,chldCunt) {
 /********************************************************************************************************************
 											CHILD FUNCTION ENDS
 *********************************************************************************************************************/
+/*Setting image height and width*/
+/*function setImageSize(){
+
+}*/
 
 /********************************************************************************************************************
 											SAVE SLIDE FUNCTION STARTS

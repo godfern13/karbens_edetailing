@@ -22,7 +22,8 @@
     <meta http-equiv="content-script-type" content="text/javascript" />
     <meta http-equiv="content-style-type" content="text/css" />
 	<title>E-Detailing</title>
-    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+   
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
 	<script type="text/javascript">
 	    google.load("jquery", "1.4.2");
 		google.load("jqueryui", "1.7.2");
@@ -30,8 +31,7 @@
 	<link rel="stylesheet" type="text/css" href="css/framework.css" media="all" />
 	<script type="text/javascript" src="script/slide.js"></script>
 	<script type="text/javascript" src="script/dragresize.js"></script>
-	<script type="text/javascript" src="script/h5utils.js"></script>
-	
+		
 	<style type="text/css">
 
 	/* Required CSS classes: must be included in all pages using this script */

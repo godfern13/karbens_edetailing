@@ -18,7 +18,21 @@ class DB_Functions {
         
     }
 
-    /**
+    
+	/**
+     * Getting Brand details
+     */
+    /*public function getAllBrands($id) {
+		$query 	= "	SELECT brand.id,brand.name,brand.added_on,brand.updated_on
+					FROM brand
+					INNER JOIN user_vs_brands ON brand.id = user_vs_brands.brand_id
+					WHERE brand.id = ".$id." AND brand.del_flag = 0";
+        //echo $query;
+		$result = mysql_query($query)or die(mysql_error());
+        return $result;
+    }*/
+	
+	/**
      * Adding new presentations
      * 
      */
@@ -39,10 +53,14 @@ class DB_Functions {
 	/**
      * Getting Presenatation details
      */
-    public function getAllPresenatations() {
+    public function getAllPresenatations($id) {
 		$query 	= "	SELECT content.id,content.name,content.downld_status,content.isPublished,content.added_on,content.updated_on
-					FROM content
-					WHERE content.del_flag = 0";
+					FROM  content
+					INNER JOIN brand_vs_contents ON content.id = brand_vs_contents.content_id 
+					INNER JOIN brand ON brand_vs_contents.brand_id = brand.id
+					INNER JOIN user_vs_brands ON brand.id = user_vs_brands.brand_id 
+					INNER JOIN users ON user_vs_brands.user_id = users.id
+					WHERE brand.id = 1 AND users.id= ".$id." AND content.del_flag = 0";
         $result = mysql_query($query)or die(mysql_error());
         return $result;
     }
