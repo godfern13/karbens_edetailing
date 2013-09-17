@@ -357,7 +357,7 @@
 				$chldspeDisp	.=	"</tr>";*/
 			}
 			/************************** CHANGE 17/09/2013 END***************************/
-			$chldspeDisp	.=	"</table><input type='text' id='chidTyPE$this->childNo' value='$this->childCntType' />";
+			$chldspeDisp	.=	"</table><input type='hidden' id='chidTyPE$this->childNo' value='$this->childCntType' />";
 			
 			return $chldspeDisp;
 		}

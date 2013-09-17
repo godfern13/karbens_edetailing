@@ -40,11 +40,11 @@ $(document).ready(function(){
 		/*-------------------------Rectangle Script----------------------------*/
 		dragresize.isElement = function(elm)
 		{
-		 if (elm.className && elm.className.indexOf('drsElement') > -1) return true;
+			if (elm.className && elm.className.indexOf('drsElement') > -1) return true;
 		};
 		dragresize.isHandle = function(elm)
 		{
-		 if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
+			if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
 		};
 	
 		//dragresize.ondragfocus = function() { };
@@ -55,7 +55,7 @@ $(document).ready(function(){
 			$("#chldImg"+counter).attr({width: width});
 			$("#chldImg"+counter).attr({height: height});
 		};
-		dragresize.ondragend = function(isResize) { 
+		dragresize.ondragend = function(isResize) { alert('sdghj')
 			var childType	=	$('#chidTyPE'+counter).val();
 			calCordinates(parentX,parentY,counter,childType);
 		};
