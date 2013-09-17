@@ -421,3 +421,15 @@ function saveDta()
 		}
 	});
 }
+/************************** Function to hange Child Video ****************************/
+function changeChildVdo(chldCnt,childType)
+{
+	var chldWdth	=	$('#chldWdth').val();
+	var chldHght	=	$('#chldHght').val();
+	var childVdo	=	$('input#childVdoPath').val();
+	var chldVdoFrm	=	' <iframe src="'+childVdo+'" frameborder="0" id="chldVdO'+chldCnt+'"></iframe>';
+	$("#clonediv"+chldCnt).html(chldVdoFrm);
+	$("#chldVdO"+chldCnt).attr({width: chldWdth});
+	$("#chldVdO"+chldCnt).attr({height: chldHght});
+	chngChldSpec(chldCnt,childType);
+}
