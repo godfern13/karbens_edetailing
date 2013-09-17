@@ -19,6 +19,7 @@ $(document).ready(function(){
 			/********** CHANGE 17/09/2013 START **************************/
 			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
 			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
+			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
 			/********** CHANGE 17/09/2013 END **************************/
 			var pos=$(ui.helper).offset();
 			objName = "#clonediv"+counter
@@ -70,6 +71,7 @@ $(document).ready(function(){
 				/********** CHANGE 17/09/2013 START **************************/
 				if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
 				else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
+				else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
 				/********** CHANGE 17/09/2013 END **************************/
 			
 				counter++;
@@ -252,8 +254,14 @@ function chngChldSpec(chldCunt,childType)
 	var childHeght	=	parseFloat($('input#chldHght').val());
 	$("#clonediv"+chldCunt).css("height",childHeght);
 	
-	$('#chldImg'+chldCunt).css("width",childWdth);
-	$('#chldImg'+chldCunt).css("height",childHeght);
+	if(childType == 2){
+		$('#chldImg'+chldCunt).css("width",childWdth);
+		$('#chldImg'+chldCunt).css("height",childHeght);
+	}
+	if(childType == 3){	
+		$("#chldVdO"+chldCnt).attr({width: childWdth});
+		$("#chldVdO"+chldCnt).attr({height: childWdth});
+	}
 	
 	var childX	=	parseFloat($('input#childX').val());
 	var childY	=	parseFloat($('input#childY').val());

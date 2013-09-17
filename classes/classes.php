@@ -283,12 +283,6 @@
 			$chldspeDisp	.=  "<tr>";
 			$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>Specifications<input type='hidden' name='chldCnt' id='chldCnt' value='".$this->childNo."'></td>";
 			$chldspeDisp	.=	"</tr>";
-			/*$chldspeDisp	.=	"<tr height='5px'></tr>";
-			$chldspeDisp	.=	"<tr>";
-			$chldspeDisp	.=	"<td>Name</td>";
-			$chldspeDisp	.=	"<td>:</td>";
-			$chldspeDisp	.=	"<td><input type='text' name='chldName' id='chldName' onchange='return changeWdth()' value='".$this->chldName."'/></td>";
-			$chldspeDisp	.=	"</tr>";*/
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
 			$chldspeDisp	.=	"<tr>";
 			$chldspeDisp	.=	"<td>Width</td>";
@@ -314,49 +308,34 @@
 			$chldspeDisp	.=	"<td><input type='text' name='childY' id='childY' value='".$this->childY."' readonly/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
-			/************************** CHANGE 17/09/2013 START***************************/
 			if($this->childCntType == 1)
 			{ 
-				$chldspeDisp	.=  "<tr id='chldTxtCnt'>";
-				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+				$chldspeDisp	.=	"<tr>";
+				$chldspeDisp	.=	"<td>Text</td>";
+				$chldspeDisp	.=	"<td>:</td>";
+				$chldspeDisp	.=	"<td style='text-align:center'>
 										<textarea name='chldTxt' id='chldTxt' onchange='return changeChildText($this->childNo,$this->childCntType)'>$this->childText</textarea>
 									</td>";
 				$chldspeDisp	.=	"</tr>";
 			}
 			else if($this->childCntType == 2){ 
-				$chldspeDisp	.=  "<tr id='chldImgCnt'>";
-				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+				$chldspeDisp	.=	"<tr>";
+				$chldspeDisp	.=	"<td>Image</td>";
+				$chldspeDisp	.=	"<td>:</td>";
+				$chldspeDisp	.=	"<td style='text-align:center'>
 										<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
 										<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo,$this->childCntType)'/>
 										<input type='hidden' name='chldImgName' id='chldImgName' value='".$this->childImgPath."' /></form>
 									</td>";
 				$chldspeDisp	.=	"</tr>";
 			}
-			else{
-				/*$chldspeDisp	.=	"<td>
-										<select name='chldCntSel' id='chldCntSel' onchange='return displyChdCont($this->childNo)'>
-											<option value=''>Select</option>
-											<option value='1'>Text</option>
-											<option value='2'>Image</option>
-										</select>
-									</td>";
+			else if($this->childCntType == 3){
+				$chldspeDisp	.=	"<tr>";
+				$chldspeDisp	.=	"<td>Video Path</td>";
+				$chldspeDisp	.=	"<td>:</td>";
+				$chldspeDisp	.=	"<td><input type='text' name='childVdoPath' id='childVdoPath' onchange='return changeChildVdo($this->childNo,$this->childCntType)'/></td>";
 				$chldspeDisp	.=	"</tr>";
-				$chldspeDisp	.=	"<tr height='5px'></tr>";
-				$chldspeDisp	.=  "<tr id='chldTxtCnt' style='display:none'>";
-				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
-										<textarea name='chldTxt' id='chldTxt' onchange='return changeChildText($this->childNo)'>$this->childText</textarea>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-				$chldspeDisp	.=	"<tr height='5px'></tr>";
-				$chldspeDisp	.=  "<tr id='chldImgCnt' style='display:none'>";
-				$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
-										<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
-										<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo)'/>
-										<input type='text' name='chldImgName' id='chldImgName' value='".$this->childImgPath."' /></form>
-									</td>";
-				$chldspeDisp	.=	"</tr>";*/
 			}
-			/************************** CHANGE 17/09/2013 END***************************/
 			$chldspeDisp	.=	"</table><input type='hidden' id='chidTyPE$this->childNo' value='$this->childCntType' />";
 			
 			return $chldspeDisp;

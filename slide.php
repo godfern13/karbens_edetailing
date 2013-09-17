@@ -183,6 +183,7 @@
 					<!-- Change 17 / 09 / 2013 START-->
 					<div id="drag1" class="drag">Text</div>
 					<div id="drag2" class="drag">Image</div>
+					<div id="drag3" class="drag">Video</div>
 					<!-- Change 17 / 09 / 2013 END-->
 				</div>
 			</div>

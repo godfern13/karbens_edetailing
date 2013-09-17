@@ -52,6 +52,16 @@ body {
 	color:#fff;
 	text-align:center;
 }
+#drag3 {
+	margin-left:15px;
+	margin-top:15px;
+	width:60px;
+	height:60px;
+	float:left;
+	border:1px solid #000;
+	color:#fff;
+	text-align:center;
+}
 /********************** Change 17/09/2013 END************************/
 .ui-draggable-helperMoving {
 	border: 1px dotted #000;
