@@ -44,7 +44,11 @@
 			<div id="headerDiv">
 			<?//include('include/header.php');?>
 				<ul style="width:950px">
+					<p id="sndbk" class="backBtn">SEND TO BACK</p>
+					<p id="bngfrnt" class="frntBtn">BRING TO FRONT</p>
+					
 					<li>
+						
 						<input type="image" name="saveSlide" id="saveSlide" src="images/submit.png" onclick="return slideSaveCall()"/>
 						<input type="hidden" id="prntId" name="prntId" value="<?echo $slideId?>">
 					</li>

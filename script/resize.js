@@ -1,12 +1,16 @@
 (function($) {
     $.fn.resize = function(opt) {
 		//alert('hi');
-		var counter = 0;
-		var offset2 = $("#frame").offset();
-		var w 		= $(window);
-		var parentX = (offset2.left-w.scrollLeft());
-		var parentY	= (offset2.top-w.scrollTop());
-		opt 		= $.extend({handle:""}, opt);
+		var counter 	= 0;
+		var checkImg	= 0;
+		var index 		= 0;
+		var clicked = false;
+		//var getIndex	= 0;
+		var offset2 	= $("#frame").offset();
+		var w 			= $(window);
+		var parentX 	= (offset2.left-w.scrollLeft());
+		var parentY		= (offset2.top-w.scrollTop());
+		opt 			= $.extend({handle:""}, opt);
 		
 		if(opt.handle === "") {
             var $el = this;
@@ -15,14 +19,16 @@
         }
 		
 		return $el.bind({
-			hover: function() {
+			mouseover: function() {
+				index = $(this).css("z-index");
 				$(this).css('cursor','all-scroll');
 			},
 			click:function(e){		
 				var focused = 1;
 				$el.addClass('drsElement');
-				$el.css({"cursor": "default"});
-				//$el.addClass('drsMoveHandle');
+				$el.addClass('indexSlctr');
+				$el.css({"cursor": "default","z-index":index});
+				
 				/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
 				var dragresize = new DragResize('dragresize', { 
 														minWidth: 50, 
@@ -45,8 +51,20 @@
 				dragresize.ondragfocus = function() { 
 					$el.draggable( 'disable' );
 				};
-				dragresize.ondragstart 	= function(isResize) { };
-				dragresize.ondragmove 	= function(isResize) { };
+				dragresize.ondragstart 	= function(isResize) { 
+					
+					 
+					
+				};
+				dragresize.ondragmove 	= function(isResize) {
+					var id 	= $el.attr('id');
+					counter = id.slice(-1);
+					var wi = $el.width();
+					var hi = $el.height();
+					
+					$("#chldImg"+counter).attr({width: wi});
+					$("#chldImg"+counter).attr({height: hi});
+				};
 				dragresize.ondragend 	= function(isResize) { 
 					var id 	= $el.attr('id');
 					counter = id.slice(-1);
@@ -55,10 +73,34 @@
 				dragresize.ondragblur = function() {
 					$el.draggable( 'enable' );
 					$el.css({"cursor": "all-scroll"});
+					
+					$('#sndbk').click(function(){
+					clicked = true;
+					alert(clicked);
+					});
+					if(clicked == true){
+						clicked = true;
+						alert(clicked);
+					}
+					else{
+						//$el.removeClass('indexSlctr');
+						clicked = false;
+						alert(clicked);
+					}
+					
+					
 				};
 				
 				dragresize.apply(document);
-			}	
+				
+				
+			},
+			mouseout:function(e){
+				$el.css({"z-index":index});
+			}
 		});			
+		
+		
 	};
+	
 })(jQuery);

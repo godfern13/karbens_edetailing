@@ -462,12 +462,12 @@ display:none;
 
 
 .source-image {
-    width:200px;
-	height:200px;
-}/*
+	position: relative;
+	display: block;"
+}
 .source-image img {
     display: block
-}
+}/*
 .source-image:after {
     
     width: 32px;

@@ -3,6 +3,7 @@
 	 position: absolute;
 	 border: 1px solid #333;
 	 word-wrap:break-word;
+	 z-index: 1000;
 	}	
 	
 	

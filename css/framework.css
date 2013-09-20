@@ -87,7 +87,23 @@ body {
 	height:100px;
 	z-index: 1000;
 }
+
+/******************************************SEND TO BACK & BRING TO FRONT STYLES******************************************************/
+.backBtn{
+float:left;
+background:#8F9DB7;
+border:1px solid;
+margin: 0 0 0 10px;
+cursor:pointer;
 }
+.frntBtn{
+float:left;
+background:#8F9DB7;
+border:1px solid;
+margin: 0 0 0 10px;
+cursor:pointer;
+}
+/************************************************************************************************************************/
 #element{
 	border:1px solid red
 }

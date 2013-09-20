@@ -12,6 +12,7 @@ $(document).ready(function(){
 	addParentSpec();
 	
 	counter = 0;
+	var zindexval = 5;
 	/*-------------------------------------- function to drag an element -------------------------------------*/
 	$(".drag").draggable({
 		helper:'clone',
@@ -39,15 +40,30 @@ $(document).ready(function(){
 					console.log($(this).attr("id"));
 					console.log(pos.left)
 					console.log(pos.top);
+					$(objName).css({"z-index":zindexval});
 					/*----------------------------------------- Function To Get Coordinates ----------------------------------*/
-					var cordData = calCordinates(parentX,parentY,counter,childType);
+					//var cordData = calCordinates(parentX,parentY,counter,childType);
 				}
 			});
 			/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
 				var cordData = calCordinates(parentX,parentY,counter,childType);
 		}
+		
 	});
 	
+	/****BACK AND FRONT SCRIPT*****/
+	$('#sndbk').click(function(){
+		alert($("#clonediv"+counter).find('indexSlctr').css('z-index')) ;
+		
+		//var getIndex = $('.indexSlctr').attr('id');
+		//		alert(getIndex);
+		//alert(getIndex);
+	});
+	$('#bngfrnt').click(function(){
+		//alert(getIndex);
+		var getIndex = $('.indexSlctr').css('z-index');
+				alert(getIndex);
+	});
 	
 	
 	/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
@@ -84,10 +100,12 @@ $(document).ready(function(){
 		drop: function(ev, ui) { 
 			if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
 				counter++;
+				zindexval = zindexval + 5;
 				var element=$(ui.draggable).clone();
 				element.addClass("tempclass");
 				$(this).append(element);
 				$(".tempclass").attr("id","clonediv"+counter);
+				$(".tempclass").css({"z-index":zindexval});
 				$("#clonediv"+counter).removeClass("tempclass");
 				/*---------------------------------- Get the dynamically item id -------------------------------*/
 				draggedNumber = ui.helper.attr('id').search(/drag([0-9])/)
@@ -342,23 +360,13 @@ function ChldBgImgURL(upload_field,chldCunt,childType) {
 			var img = new Image();
 			var chldWdth	=	$('#chldWdth').val();
 			var chldHght	=	$('#chldHght').val();
-			//$('chldImg'+chldCunt).addClass('source-image');
-			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image" />';
+			$('chldImg'+chldCunt).addClass('source-image');
+			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image">';
 			//var result = setImageSize(chldCunt,)
 			$('#clonediv'+chldCunt).html(ImgTag);
 			$("#chldImg"+chldCunt).attr({width: chldWdth});
 			$("#chldImg"+chldCunt).attr({height: chldHght});
-			
-			
-			
-			
-			//$('#clonediv'+chldCunt).css('background-image','url(' + e.target.result + ')');
-			/*$('#clonediv'+chldCunt).css({
-			'backgroundImage': 'url(' + e.target.result + ')',
-			'backgroundRepeat': 'no-repeat',
-			'backgroundPosition': 'top center'
-			});*/
-			
+						
 		};
 		reader.readAsDataURL(upload_field.files[0]);
 	}
