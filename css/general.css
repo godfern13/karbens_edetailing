@@ -481,6 +481,80 @@ display:none;
 
 /********************************/
 
+/****************************************SLIDE STYLES*****************************************/
+#webFrameBody{
+background: none repeat scroll 0 0 #FFFFFF;
+box-shadow: 0 0 25px 5px #A9A9A9;
+display: inline-block;
+margin: 0 0 20px;
+min-height: 400px;
+padding: 0;
+width: 1100px;
+}
+
+#createArea{
+float:left;
+margin:0 0 0;
+padding:0 0 0;
+width:800px;
+min-height: 400px;
+}
+
+#toolBoxArea{
+float:left;
+margin:0 0 0;
+padding:0 0 0;
+width:300px;
+min-height: 400px;
+background:#F6F6F6;
+}
+
+#displaySpecifications{
+float:left;
+margin:0 0 0;
+padding:0 0 0;
+width:300px;
+min-height: 200px;
+}
+
+#tools{
+float:left;
+margin:0 0 0;
+padding:0 0 0;
+width:300px;
+min-height: 200px;
+background:#FFEE88;
+}
+
+.addTool{
+float:left;
+margin:0 0 0;
+padding:0 0 0;
+width:80px;
+height: 40px;
+border:1px solid;
+cursor:move;
+}
+
+#tools ul{
+float:left;
+margin:0 0 0;
+padding:10px;
+}
+
+#tools ul li{
+float:left;
+margin:0 0 0;
+padding:0 0 0;
+width:80px;
+height: 40px;
+border:1px solid;
+cursor:move;
+}
+
+
+
+
 /**************************************PROFILE STYLES*****************************************/
 #profileWrapper{
 margin:0 auto;

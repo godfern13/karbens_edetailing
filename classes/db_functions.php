@@ -36,13 +36,18 @@ class DB_Functions {
      * Adding new presentations
      * 
      */
-    public function storePresentaions($contentId, $name) {
+    public function storePresentaions($contentId, $name,$brandId) {
         // insert content into database
-        $query 	= "	INSERT INTO content(id,name)VALUES(".$contentId.",'".$name."')";
-		$result = mysql_query($query)or die(mysql_error());
+        $query1 	= "	INSERT INTO content(id,name)VALUES(".$contentId.",'".$name."')";
+		$result = mysql_query($query1)or die(mysql_error());
 		if ($result) {
             // get content details
             $id = mysql_insert_id(); // last inserted id
+			
+			//Inserting into mapping table
+			$query2 	= "	INSERT INTO brand_vs_contents(brand_id ,content_id)VALUES(".$brandId.",".$id.")";
+			$result = mysql_query($query2)or die(mysql_error());
+			
 			return $id;
 		}
 		else {
@@ -103,7 +108,7 @@ class DB_Functions {
      * Adding new Slides
      * 
      */
-    public function storeSlide($contentId, $name) {
+    public function storeSlide($prntId,$contentId, $name) {
         // insert content into database
 		$query 	= "	INSERT INTO parent(id,content_id,name)VALUES(".$prntId.",".$contentId.",'".$name."')";
 		$result = mysql_query($query)or die(mysql_error());

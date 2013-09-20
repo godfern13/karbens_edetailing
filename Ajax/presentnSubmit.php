@@ -17,8 +17,9 @@
 		$table_col	= 'id';
 		$contentId	= $generalObj->getPK($table_name,$table_col);		
 		$name 		= $_POST['pName'];
+		$brandId	= 1;
 		
-		$contentId 	= $db->storePresentaions($contentId,$name);
+		$contentId 	= $db->storePresentaions($contentId,$name,$brandId);
 		//echo 'data:'.$contentId;
 		if ($contentId != false){
 			echo $contentId;

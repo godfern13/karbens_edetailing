@@ -6,6 +6,8 @@ $(document).ready(function(){
 	var parentX = 	(offset2.left-w.scrollLeft());
 	var parentY	=	(offset2.top-w.scrollTop());
 	
+	var focused = 0;
+	
 	/*------------------------------------- Get Parent Frame Specification ----------------------------------*/
 	addParentSpec();
 	
@@ -16,18 +18,31 @@ $(document).ready(function(){
 		containment: 'frame',
 		/*--------------------------------------- first time drag -----------------------------------------------*/
 		stop:function(ev, ui) { 
-			/********** CHANGE 17/09/2013 START **************************/
+		
 			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
 			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
 			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
-			/********** CHANGE 17/09/2013 END **************************/
+			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}
+			
 			var pos=$(ui.helper).offset();
 			objName = "#clonediv"+counter
-			$(objName).css({"left":pos.left,"top":pos.top});
+			$(objName).css({"left":pos.left,"top":pos.top,"cursor": "all-scroll"});
 			$(objName).removeClass("drag");
-			$(objName).addClass("drsElement");
-			$(objName).addClass("drsMoveHandle");
-			
+			//$(objName).addClass("drsElement");
+			//$(objName).addClass("drsMoveHandle");
+			$(objName).resize();
+			/*------------------------------------------- drag element within the frame --------------------------------*/
+			$(objName).draggable({
+				containment: 'parent',
+				stop:function(ev, ui) {  
+					var pos=$(ui.helper).offset();
+					console.log($(this).attr("id"));
+					console.log(pos.left)
+					console.log(pos.top);
+					/*----------------------------------------- Function To Get Coordinates ----------------------------------*/
+					var cordData = calCordinates(parentX,parentY,counter,childType);
+				}
+			});
 			/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
 				var cordData = calCordinates(parentX,parentY,counter,childType);
 		}
@@ -36,44 +51,38 @@ $(document).ready(function(){
 	
 	
 	/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
-		var dragresize = new DragResize('dragresize', {minLeft: 186, maxLeft: 835,minTop: 52,maxTop: 600 });
+	/*	var dragresize = new DragResize('dragresize', {minLeft: 186, maxLeft: 835,minTop: 52,maxTop: 600 });
 		
-		/*-------------------------Rectangle Script----------------------------*/
 		dragresize.isElement = function(elm)
 		{
-			if (elm.className && elm.className.indexOf('drsElement') > -1) return true;
+		 if (elm.className && elm.className.indexOf('drsElement') > -1) return true;
 		};
 		dragresize.isHandle = function(elm)
 		{
-			if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
+		 if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
 		};
 	
-		//dragresize.ondragfocus = function() { };
-		//dragresize.ondragstart = function(isResize) { 
+		dragresize.ondragfocus = function() { };
+		dragresize.ondragstart = function(isResize) { };
 		dragresize.ondragmove = function(isResize) { 
+		
 			var width	=	$("#clonediv"+counter).width();
 			var height	=	$("#clonediv"+counter).height();
 			$("#chldImg"+counter).attr({width: width});
 			$("#chldImg"+counter).attr({height: height});
+			calCordinates(parentX,parentY,counter);
 		};
-		dragresize.ondragend = function(isResize) { alert('sdghj')
-			var childType	=	$('#chidTyPE'+counter).val();
-			calCordinates(parentX,parentY,counter,childType);
+		dragresize.ondragend = function(isResize) { 
+			//calCordinates(parentX,parentY,counter);
 		};
-		//dragresize.ondragblur = function() { };
+		dragresize.ondragblur = function() { };
 		
 		dragresize.apply(document);
-	
+	*/
 	/*------------------------------------------ drop an element function -----------------------------------------------*/
 	$("#frame").droppable({ 
 		drop: function(ev, ui) { 
 			if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
-				/********** CHANGE 17/09/2013 START **************************/
-				if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
-				else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
-				else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
-				/********** CHANGE 17/09/2013 END **************************/
-			
 				counter++;
 				var element=$(ui.draggable).clone();
 				element.addClass("tempclass");
@@ -157,6 +166,7 @@ function chngeParSpec()
 function showParSpec()
 {
 	$('#frame').click( function(event) {
+		
 		if(event.target.id == 'frame')
 		{
 			$.ajax({
@@ -223,7 +233,7 @@ function calCordinates(parentX,parentY,counter,childType)
 	addChildSpec(width,height,counter,insideX1,insideY1,childType);
 	
 	$("#chldImg"+counter).attr({width: width});
-	$("#chldImg"+counter).attr({height: height});
+			$("#chldImg"+counter).attr({height: height});
 	return corData;
 	
 }
@@ -270,6 +280,7 @@ function chngChldSpec(chldCunt,childType)
 	var childText		=	$('textarea#chldTxt').val();
 	var childImgPath	=	$('input#chldImgName').val();
 	
+	
 	var dataString	=	'childWdth='+childWdth+'&childHght='+childHeght+'&chldCnt='+chldCunt+'&chldX='+childX+'&chldY='+childY+'&childType='+childType+'&childImgPath='+childImgPath+'&childText='+childText;
 	$.ajax({
 		type: "POST",
@@ -284,6 +295,7 @@ function chngChldSpec(chldCunt,childType)
 /*------------------------------------ OnClick of Child Div function --------------------------------------*/
 function showChildSpec(counter)
 {	
+	//$('#clonediv'+counter).removeClass( 'drsElement' )
 	var dataStrng	=	'cunt='+counter;
 	$.ajax({
 		type: "POST",
@@ -297,9 +309,9 @@ function showChildSpec(counter)
 }
 
 /*----------------------------------- ----------------------------------------------------------*/
-function displyChdCont(counter)
+/*function displyChdCont(counter)
 {
-	/*var chldCntSel = $('select#chldCntSel').val();
+	var chldCntSel = $('select#chldCntSel').val();
 	if(chldCntSel == '1')
 	{
 		$('#chldTxtCnt').show();
@@ -314,8 +326,8 @@ function displyChdCont(counter)
 	{
 		$('#chldTxtCnt').hide();
 		$('#chldImgCnt').hide();
-	}*/
-}
+	}
+}*/
 function changeChildText(chldCunt,childType)
 {	
 	var childText	=	$('textarea#chldTxt').val();

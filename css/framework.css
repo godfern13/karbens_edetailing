@@ -30,6 +30,8 @@ body {
     background-position: 0 0;
     border:1px solid black;
     float:left;
+	z-index: 500;
+}
 }
 /********************** Change 17/09/2013 START************************/
 #drag1 {
@@ -83,6 +85,8 @@ body {
 	/*background:#fff;*/
 	width:200px;
 	height:100px;
+	z-index: 1000;
+}
 }
 #element{
 	border:1px solid red
