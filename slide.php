@@ -21,56 +21,74 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-script-type" content="text/javascript" />
     <meta http-equiv="content-style-type" content="text/css" />
-	<title>E-Detailing</title>
+	<title>e-Detailer</title>
+		
+		<link href="css/general.css" type="text/css" rel="stylesheet">
+		<!--<link rel="stylesheet" type="text/css" href="css/framework.css" media="all" />-->
+		<link rel="stylesheet" type="text/css" href="css/resize.css" media="all" />
+		<style>
+			#container{
+				min-height:463px;
+				width:100%;
+				text-align:center;
+				padding: 0px 0 0;
+			}
+		</style>
    
+	<!--<script type="text/javascript" src="script/temp/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="script/temp/jquery-ui.js"></script>
+	<script type="text/javascript" src="script/temp/jquery.ui.droppable.js"></script>
+	<script type="text/javascript" src="script/temp/jquery.ui.draggable.js"></script>-->
+	
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
 	<script type="text/javascript">
 	    google.load("jquery", "1.4.2");
 		google.load("jqueryui", "1.7.2");
 	</script>
-	<link rel="stylesheet" type="text/css" href="css/framework.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="css/resize.css" media="all" />
+	
 	<script type="text/javascript" src="script/slide.js"></script>
 	<script type="text/javascript" src="script/dragresize.js"></script>
 	<script type="text/javascript" src="script/resize.js"></script>
-	
-	
-	
-	
+	<!--<script type="text/javascript" src="script/drag.js"></script>-->
 	
 </head>
 	<body>
 		<div id="wrapper">
-			<div id="headerDiv">
-			<?//include('include/header.php');?>
-				<ul style="width:950px">
-					<p id="sndbk" class="backBtn">SEND TO BACK</p>
-					<p id="bngfrnt" class="frntBtn">BRING TO FRONT</p>
-					
-					<li>
-						
-						<input type="image" name="saveSlide" id="saveSlide" src="images/submit.png" onclick="return slideSaveCall()"/>
-						<input type="hidden" id="prntId" name="prntId" value="<?echo $slideId?>">
-					</li>
-				</ul>
-			</div>
-			<div id="frame">
-				<!--<input type="button" name="" id="" value="save" onclick="return saveDta()"/>-->
-			</div>
-			<div id="rightDiv">
-				<div id="specfcatnDiv">
-					<img src="images/loader.gif" style="margin:120px 0 0 80px" id="specLoader">
-				</div>
-				<div id="options">
-					<iframe name="upload_iframe" id="upload_iframe" style="display:none;"></iframe>
-					<!-- Change 17 / 09 / 2013 START-->
-					<div id="drag1" class="drag"></div>
-					<div id="drag2" class="drag">Image</div>
-					<div id="drag3" class="drag">Video</div>
-					<!-- Change 17 / 09 / 2013 END-->
-				</div>			
-				
-			</div>
+			<?include('include/header.php');?>
+			<div id="mainWrapper">
+				<div id="container">
+					<div id="webFrameBody">
+						<div id="webFrameMenu">
+							<ul style="width:950px">
+								<li >								
+									<input type="image" name="saveSlide" id="saveSlide" src="images/sld_sv.png" onclick="return slideSaveCall()" title="SAVE SLIDE" style="width:35px;height:35px;"/>
+									<input type="hidden" id="prntId" name="prntId" value="<?echo $slideId?>">
+								</li>
+								<li>
+									<p id="sndbk" class="backBtn">SEND TO BACK</p>
+									<p id="bngfrnt" class="frntBtn">BRING TO FRONT</p>	
+								</li>
+								
+							</ul>
+						</div>
+			
+						<div id="createArea">
+							<div id="frame"></div>
+						</div>
+						<div id="rightDiv">
+							<div id="specfcatnDiv">
+								<img src="images/loader.gif" style="margin:120px 0 0 80px" id="specLoader">
+							</div>
+							<div id="options">
+								<iframe name="upload_iframe" id="upload_iframe" style="display:none;"></iframe>
+								<!-- Change 17 / 09 / 2013 START-->
+								<div id="drag1" class="drag"></div>
+								<div id="drag2" class="drag">Image</div>
+								<div id="drag3" class="drag">Video</div>
+								<!-- Change 17 / 09 / 2013 END-->
+							</div>			
+							
+						</div>
 		</div>
 		<div id="div_id"></div>
 	</body>

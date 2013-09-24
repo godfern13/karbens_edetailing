@@ -1,41 +1,22 @@
 $(document).ready(function(){
 
-	/*******GLOBAL VAR*********
-	*******************************/
-	var counter = 0;
-	var zindexval = 5000;
-	/*******************************
-	********************************/
-	
-	/*-------------------------------------On page load Get Parent Frame Specification ----------------------------------*/
-	addParentSpec();	
-	
-	/********************************************************************
-	******************Getting the X and Y axis of the frame*************
-	********************************************************************/
+	$("#frame").click(function(){showParSpec()});
 	var offset2 = $("#frame").offset();
 	var w = $(window);
 	var parentX = 	(offset2.left-w.scrollLeft());
 	var parentY	=	(offset2.top-w.scrollTop());
-	/********************************************************************
-	********************************************************************
-	********************************************************************/
-		
-	$("#frame").click(function(e){//alert('hi');
-		showParSpec();
-		$('.selected').removeClass('selected');
-	});
 	
-	/***************************************************************
-	**********Dragging an element from the tools box****************
-	****************************************************************/
+	/*------------------------------------- Get Parent Frame Specification ----------------------------------*/
+	addParentSpec();
+	
+	counter = 0;
 	/*-------------------------------------- function to drag an element -------------------------------------*/
 	$(".drag").draggable({
 		helper:'clone',
 		containment: 'frame',
 		/*--------------------------------------- first time drag -----------------------------------------------*/
 		stop:function(ev, ui) { 
-			$(this).css("z-index", zindexval); 
+		
 			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
 			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
 			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
@@ -45,7 +26,8 @@ $(document).ready(function(){
 			objName = "#clonediv"+counter
 			$(objName).css({"left":pos.left,"top":pos.top});
 			$(objName).removeClass("drag");
-			
+			$(objName).addClass("drsElement");
+			$(objName).addClass("drsMoveHandle");
 			/*------------------------------------------- drag element within the frame --------------------------------*/
 			$(objName).draggable({
 				containment: 'parent',
@@ -59,82 +41,61 @@ $(document).ready(function(){
 				}
 			});
 			/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
-				//var cordData = calCordinates(parentX,parentY,counter,childType);
+				var cordData = calCordinates(parentX,parentY,counter,childType);
 		}
-		
 	});
+	
+	
+	
+	/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
+		/*var dragresize = new DragResize('dragresize', {minLeft: 186, maxLeft: 835,minTop: 52,maxTop: 600 });
+		
+		dragresize.isElement = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsElement') > -1) return true;
+		};
+		dragresize.isHandle = function(elm)
+		{
+		 if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
+		};
+	
+		dragresize.ondragfocus = function() { };
+		dragresize.ondragstart = function(isResize) { };
+		dragresize.ondragmove = function(isResize) { 
+		
+			var width	=	$("#clonediv"+counter).width();
+			var height	=	$("#clonediv"+counter).height();
+			$("#chldImg"+counter).attr({width: width});
+			$("#chldImg"+counter).attr({height: height});
+			calCordinates(parentX,parentY,counter);
+		};
+		dragresize.ondragend = function(isResize) { 
+			calCordinates(parentX,parentY,counter);
+		};
+		dragresize.ondragblur = function() { };
+		
+		dragresize.apply(document);*/
 	
 	/*------------------------------------------ drop an element function -----------------------------------------------*/
 	$("#frame").droppable({ 
 		drop: function(ev, ui) { 
-			
-			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
-			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
-			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
-			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}
-						
 			if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
 				counter++;
-				zindexval++;
 				var element=$(ui.draggable).clone();
-				objName = "#clonediv"+counter;
 				element.addClass("tempclass");
 				$(this).append(element);
 				$(".tempclass").attr("id","clonediv"+counter);
 				$("#clonediv"+counter).removeClass("tempclass");
-				$(objName).css({'z-index':zindexval});
-				$(objName).resize();
-				$(objName).bind("click", function () {
-					counter = this.id.slice(-1);
-					showChildSpec(counter);
-				});
 				/*---------------------------------- Get the dynamically item id -------------------------------*/
 				draggedNumber = ui.helper.attr('id').search(/drag([0-9])/)
 				itemDragged = "dragged1"
 				console.log(itemDragged)
 				$("#clonediv"+counter).addClass(itemDragged);
-				//alert(ui.helper.attr('id'));
-				//alert('calling in droppable');
-				var cordData = calCordinates(parentX,parentY,counter,childType);
+				//var cordData = calCordinates(parentX,parentY,counter);
 			}
 		}
 	});
-
-	/***************************************************************
-	****************Moving an element to FRONT/BACK*****************
-	****************************************************************/
-	
-	$('#sndbk').click(function(event){
-					
-		var divId = $('.selected').attr('id');
-		var currIndex = $('.selected').css('z-index');
-		var indexArray = [];
-		$('.dragged1 ').each(function () {
-			 indexArray.push($(this).css('zIndex'));
-		});
-		var minIndex = Math.min.apply(Math,indexArray);//Getting minimum index value
-		var newIndex  = minIndex - 1;
-		$('#'+divId).css({'z-index':newIndex});
-		event.stopPropagation();
-	});
-	
-	$('#bngfrnt').click(function(event){
-					
-		var divId = $('.selected').attr('id');
-		var currIndex = $('.selected').css('z-index');
-		var indexArray = [];
-		$('.dragged1 ').each(function () {
-			 indexArray.push($(this).css('zIndex'));
-		});
-		var maxIndex = Math.max.apply(Math,indexArray);//Getting maximum index value
-		var newIndex  = maxIndex + 1;
-		$('#'+divId).css({'z-index':newIndex});
-		event.stopPropagation();
-	});
-	
 });
-
-
 
 /********************************************************************************************************************
 											PARENT FUNCTIONS START
@@ -167,7 +128,6 @@ function addParentSpec()
 		}
 	});
 }
-
 /*------------------------------------ OnChange Function ------------------------------------------------*/
 function chngeParSpec()
 {
@@ -201,15 +161,10 @@ function chngeParSpec()
 }
 /*------------------------------------- On click On Frame Function ------------------------------*/
 function showParSpec()
-{	
-	
-	//$('#frame').click( function(event) {
-		
-		//if(event.target.id == 'frame')
-	//	{
-		//alert('prnt specification');
-		//alert(event.target.id);
-		
+{
+	$('#frame').click( function(event) {
+		if(event.target.id == 'frame')
+		{
 			$.ajax({
 				type: "POST",
 				url: "Ajax/showParSpec.php",
@@ -218,10 +173,8 @@ function showParSpec()
 					$('#specfcatnDiv').html(data);
 				}
 			});
-		
-	//	}
-		
-	//});
+		}
+	});
 }
 /*------------------------------------------- Set Image To Frame Background --------------------------------*/
 function ParntBgImgURL(upload_field) { 
@@ -262,7 +215,7 @@ function ParntBgImgURL(upload_field) {
 /*----------------------------------- Get Child Cordinates Function ---------------------------------*/
 function calCordinates(parentX,parentY,counter,childType)
 {	
-	//$("#clonediv"+counter).click(function(){showChildSpec(counter)});
+	$("#clonediv"+counter).click(function(){showChildSpec(counter)});
 	var offset 	= 	$("#clonediv"+counter).offset();
 	var w = $(window);
 	var width	=	$("#clonediv"+counter).width();
@@ -338,9 +291,6 @@ function chngChldSpec(chldCunt,childType)
 /*------------------------------------ OnClick of Child Div function --------------------------------------*/
 function showChildSpec(counter)
 {	
-	//alert('child specification');
-	//$('#clonediv'+counter).removeClass( 'drsElement' )
-	//alert('child called');
 	var dataStrng	=	'cunt='+counter;
 	$.ajax({
 		type: "POST",
@@ -387,13 +337,23 @@ function ChldBgImgURL(upload_field,chldCunt,childType) {
 			var img = new Image();
 			var chldWdth	=	$('#chldWdth').val();
 			var chldHght	=	$('#chldHght').val();
-			$('chldImg'+chldCunt).addClass('source-image');
-			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image">';
+			//$('chldImg'+chldCunt).addClass('source-image');
+			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image" />';
 			//var result = setImageSize(chldCunt,)
 			$('#clonediv'+chldCunt).html(ImgTag);
 			$("#chldImg"+chldCunt).attr({width: chldWdth});
 			$("#chldImg"+chldCunt).attr({height: chldHght});
-						
+			
+			
+			
+			
+			//$('#clonediv'+chldCunt).css('background-image','url(' + e.target.result + ')');
+			/*$('#clonediv'+chldCunt).css({
+			'backgroundImage': 'url(' + e.target.result + ')',
+			'backgroundRepeat': 'no-repeat',
+			'backgroundPosition': 'top center'
+			});*/
+			
 		};
 		reader.readAsDataURL(upload_field.files[0]);
 	}
@@ -443,7 +403,7 @@ function slideSaveCall()
 		data:dataStrng,
 		success: function(data) { 
 			//alert("Presentation Slide Added Sucessfully");
-			//alert(data);
+			alert(data);
 			setTimeout("window.location='slide.php?id="+btoa(data)+"'",1000);
 		}
 	});

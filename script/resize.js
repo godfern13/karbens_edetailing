@@ -2,10 +2,9 @@
     $.fn.resize = function(opt) {
 		//alert('hi');
 		var counter 	= 0;
-		var checkImg	= 0;
-		var index 		= 0;
-		var clicked = false;
-		//var getIndex	= 0;
+		//var checkImg	= 0;
+		//var index 		= 0;
+		var clicked 	= false;
 		var offset2 	= $("#frame").offset();
 		var w 			= $(window);
 		var parentX 	= (offset2.left-w.scrollLeft());
@@ -16,18 +15,23 @@
             var $el = this;
         } else {
             var $el = this.find(opt.handle);
-        }
+		}
+		
+		
 		
 		return $el.bind({
-			mouseover: function() {
-				index = $(this).css("z-index");
-				$(this).css('cursor','all-scroll');
-			},
-			click:function(e){		
-				var focused = 1;
+			click:function(e){//alert('clicked');
+				//showChildSpec(1);
+				e.stopPropagation();
+				$el.draggable( 'disable' );
 				$el.addClass('drsElement');
-				$el.addClass('indexSlctr');
 				$el.css({"cursor": "default","z-index":index});
+				
+				$('.drsElement').click(function(e){
+					e.stopPropagation();
+					$('.selected').removeClass('selected');
+					$(this).addClass('selected');
+				});
 				
 				/*--------------------------------------------Drag and Resize--------------------------------------------------------*/
 				var dragresize = new DragResize('dragresize', { 
@@ -48,13 +52,9 @@
 				 if (elm.className && elm.className.indexOf('drsMoveHandle') > -1) return true;
 				};					
 				
-				dragresize.ondragfocus = function() { 
-					$el.draggable( 'disable' );
-				};
-				dragresize.ondragstart 	= function(isResize) { 
-					
-					 
-					
+				dragresize.ondragfocus = function() {};
+				dragresize.ondragstart 	= function(isResize) { 					
+					 clicked = true; 					
 				};
 				dragresize.ondragmove 	= function(isResize) {
 					var id 	= $el.attr('id');
@@ -65,42 +65,34 @@
 					$("#chldImg"+counter).attr({width: wi});
 					$("#chldImg"+counter).attr({height: hi});
 				};
-				dragresize.ondragend 	= function(isResize) { 
-					var id 	= $el.attr('id');
-					counter = id.slice(-1);
-					calCordinates(parentX,parentY,counter);
-				};
+				if(clicked == true){
+					dragresize.ondragend 	= function(isResize) {
+						//clicked = true;
+						//if(clicked == true){
+							var id 	= $el.attr('id');
+							counter = id.slice(-1);
+							//alert('calling in ondragend');
+							calCordinates(parentX,parentY,counter);
+						//	clicked = false;
+						//}
+					};
+				}
 				dragresize.ondragblur = function() {
-					$el.draggable( 'enable' );
 					$el.css({"cursor": "all-scroll"});
-					
-					$('#sndbk').click(function(){
-					clicked = true;
-					alert(clicked);
-					});
-					if(clicked == true){
-						clicked = true;
-						alert(clicked);
-					}
-					else{
-						//$el.removeClass('indexSlctr');
-						clicked = false;
-						alert(clicked);
-					}
-					
-					
-				};
-				
+					$el.draggable( 'enable' );					
+				};				
 				dragresize.apply(document);
 				
-				
+			},
+			mouseover: function() {
+				index = $(this).css("z-index");
+				$(this).css('cursor','all-scroll');
 			},
 			mouseout:function(e){
 				$el.css({"z-index":index});
-			}
-		});			
-		
-		
+				
+			}			
+		});		
 	};
 	
 })(jQuery);

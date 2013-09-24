@@ -492,6 +492,30 @@ padding: 0;
 width: 1100px;
 }
 
+#webFrameMenu{
+background: none repeat scroll 0 0 #FFFFFF;
+margin: 0 0 0px;
+height: 40px;
+padding: 5px 0 0 0;
+width: 1100px;
+border-bottom:1px solid #F6F6F6;
+}
+
+#webFrameMenu ul{
+background: none repeat scroll 0 0 #FFFFFF;
+margin: 0 0 0;
+height: 40px;
+padding: 0 0 0 5px;
+width: 1100px;
+}
+
+#webFrameMenu ul li{
+float:left;
+background: none repeat scroll 0 0 #FFFFFF;
+margin: 0 0 0px;
+padding: 0;
+}
+
 #createArea{
 float:left;
 margin:0 0 0;
@@ -500,7 +524,16 @@ width:800px;
 min-height: 400px;
 }
 
-#toolBoxArea{
+#frame{
+/*position:absolute;*/
+margin:0 0 0;
+padding:0 0 0;
+width:800px;
+min-height: 400px;
+z-index: 0;
+}
+
+#rightDiv{
 float:left;
 margin:0 0 0;
 padding:0 0 0;
@@ -509,21 +542,21 @@ min-height: 400px;
 background:#F6F6F6;
 }
 
-#displaySpecifications{
+#specfcatnDiv{
 float:left;
 margin:0 0 0;
 padding:0 0 0;
-width:300px;
+width:299px;
 min-height: 200px;
 }
 
-#tools{
+#options{
 float:left;
 margin:0 0 0;
 padding:0 0 0;
-width:300px;
+width:299px;
 min-height: 200px;
-background:#FFEE88;
+background:#EBEBEB;
 }
 
 .addTool{
@@ -551,6 +584,83 @@ height: 40px;
 border:1px solid;
 cursor:move;
 }
+
+/********************** Change 17/09/2013 START************************/
+#drag1 {
+	margin-left:15px;
+	margin-top:15px;
+	width:60px;
+	height:60px;
+	float:left;
+	border:1px solid #000;
+	color:#fff;
+	text-align:center;
+}
+#drag2 {
+	margin-left:15px;
+	margin-top:15px;
+	width:60px;
+	height:60px;
+	float:left;
+	border:1px solid #000;
+	color:#fff;
+	text-align:center;
+}
+#drag3 {
+	margin-left:15px;
+	margin-top:15px;
+	width:60px;
+	height:60px;
+	float:left;
+	border:1px solid #000;
+	color:#fff;
+	text-align:center;
+}
+/********************** Change 17/09/2013 END************************/
+.ui-draggable-helperMoving {
+	border: 1px dotted #000;
+	padding: 6px;
+	background: #fff;
+	font-size: 1.2em;
+	width:100px;
+	height:100px;
+}
+.ui-draggable-helperStoped {
+	border: 1px solid #000;
+	width:5px;
+	height:5px;
+}
+/* classes for dragged stuff */
+.dragged1 {
+	position:absolute; 
+	border:1px dashed #000;
+	/*background:#fff;*/
+	width:200px;
+	height:100px;
+	z-index: 1000;
+}
+
+/******************************************SEND TO BACK & BRING TO FRONT STYLES******************************************************/
+
+.selected{
+
+    border: 1px solid red;
+}
+.backBtn{
+float:left;
+background:#8F9DB7;
+border:1px solid;
+margin: 0 0 0 10px;
+cursor:pointer;
+}
+.frntBtn{
+float:left;
+background:#8F9DB7;
+border:1px solid;
+margin: 0 0 0 10px;
+cursor:pointer;
+}
+/************************************************************************************************************************/
 
 
 

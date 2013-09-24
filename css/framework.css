@@ -29,8 +29,11 @@ body {
 	background-repeat: repeat-y;
     background-position: 0 0;
     border:1px solid black;
-    float:left;
+    /*float:left;*/
+	position: absolute;
 	z-index: 500;
+	display: inline-block;   
+    margin: 0 auto;
 }
 }
 /********************** Change 17/09/2013 START************************/
@@ -127,8 +130,12 @@ cursor:pointer;
 	list-style:none;
 }
 #rightDiv{
-	float:left;
+	/*float:left;*/
 	margin:0;
 	padding:0;
 	width:300px;
+	 position: absolute;
+	z-index: 500;
+	display: inline-block;   
+    margin: 0 auto;
 }
