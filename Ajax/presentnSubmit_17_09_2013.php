@@ -17,17 +17,8 @@
 		$table_col	= 'id';
 		$contentId	= $generalObj->getPK($table_name,$table_col);		
 		$name 		= $_POST['pName'];
-		$brandId	= 1;
-		$prentnNaMe	=	preg_replace('/\s+/','',$name);
-		$foldrPth	=	$prentnNaMe.$contentId;
-		$path 		= 	'../images/'.$foldrPth.'/';
-		$pathPar	=	$path.'parent/';
-		$pathChld	=	$path.'child/';
-		mkdir($path);
-		mkdir($pathPar);
-		mkdir($pathChld);
-		$_SESSION['mainPresntnName'] = $foldrPth;
-		$contentId 	= $db->storePresentaions($contentId,$name,$brandId);
+		
+		$contentId 	= $db->storePresentaions($contentId,$name);
 		//echo 'data:'.$contentId;
 		if ($contentId != false){
 			echo $contentId;

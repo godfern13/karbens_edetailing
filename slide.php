@@ -21,36 +21,28 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-script-type" content="text/javascript" />
     <meta http-equiv="content-style-type" content="text/css" />
-	<title>e-Detailer</title>
-		
-		<link href="css/general.css" type="text/css" rel="stylesheet">
-		<!--<link rel="stylesheet" type="text/css" href="css/framework.css" media="all" />-->
-		<link rel="stylesheet" type="text/css" href="css/resize.css" media="all" />
-		<style>
-			#container{
-				min-height:463px;
-				width:100%;
-				text-align:center;
-				padding: 0px 0 0;
-			}
-		</style>
+	<title>E-Detailing</title>
    
-	<!--<script type="text/javascript" src="script/temp/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="script/temp/jquery-ui.js"></script>
-	<script type="text/javascript" src="script/temp/jquery.ui.droppable.js"></script>
-	<script type="text/javascript" src="script/temp/jquery.ui.draggable.js"></script>-->
-	
 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
 	<script type="text/javascript">
 	    google.load("jquery", "1.4.2");
 		google.load("jqueryui", "1.7.2");
 	</script>
-	
+	<!--<link rel="stylesheet" type="text/css" href="css/framework.css" media="all" />-->
+	<link href="css/general.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/resize.css" media="all" />
+	<style>
+		#container{
+			min-height:463px;
+			width:100%;
+			text-align:center;
+			padding: 0px 0 0;
+		}
+	</style>
 	<script type="text/javascript" src="script/slide.js"></script>
 	<script type="text/javascript" src="script/dragresize.js"></script>
+	<script type="text/javascript" src="jscolor/jscolor.js"></script>	
 	<script type="text/javascript" src="script/resize.js"></script>
-	<!--<script type="text/javascript" src="script/drag.js"></script>-->
-	
 </head>
 	<body>
 		<div id="wrapper">
@@ -71,7 +63,6 @@
 								
 							</ul>
 						</div>
-			
 						<div id="createArea">
 							<div id="frame"></div>
 						</div>
@@ -81,15 +72,16 @@
 							</div>
 							<div id="options">
 								<iframe name="upload_iframe" id="upload_iframe" style="display:none;"></iframe>
-								<!-- Change 17 / 09 / 2013 START-->
-								<div id="drag1" class="drag"></div>
+								<div id="drag1" class="drag">Text</div>
 								<div id="drag2" class="drag">Image</div>
 								<div id="drag3" class="drag">Video</div>
-								<!-- Change 17 / 09 / 2013 END-->
+								<div id="drag4" class="drag">Reference</div>
 							</div>			
-							
 						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div id="div_id"></div>
+		<div id="footer"></div>
 	</body>
 </html>

@@ -1,7 +1,8 @@
 <?php 
 	include("classes/classes.php");
+	session_start();
 	$serVerName		=	$_SERVER['SERVER_NAME'];
-	$upload_dir 	= 	'images/parent/'; // Directory for file storing
+	$upload_dir 	= 	'images/'.$_SESSION['mainPresntnName'].'/parent/'; // Directory for file storing
 	$filename		= 	'';
 	$result 		= 	'ERROR';
 	$result_msg 	= 	'';

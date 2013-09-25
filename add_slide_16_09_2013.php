@@ -7,11 +7,14 @@
 		$_SESSION["msg"]="";
 	}
 	
-	$contentId = base64_decode($_GET['id']);
+	$presnt_id = base64_decode($_GET['id']);
+	//session_start();
+	 
 	 $addContentObj = new contentClass();
-	 $addContentObj->addToContentArray($contentId);
-	 $_SESSION['contentCnt'] = $contentId;
-	 $_SESSION['contentObject'.$contentId] = serialize($addContentObj);
+	 $contentCnt  = $addContentObj->getContentCount();
+	 $addContentObj->addToContentArray($contentCnt);
+	 $_SESSION['contentCnt'] = $contentCnt;
+	 $_SESSION['contentObject'.$contentCnt] = serialize($addContentObj);
 	 
 	 
 ?>
@@ -44,7 +47,7 @@
 			<div id="mainWrapper">
 				<div id="container">
 					<!--<h2>Welcome To The dashboard</h2>-->
-					<div id="menu">
+					<div id="prsntnMenu">
 						<?if($_SESSION["msg"]!=''){?>
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>
@@ -59,18 +62,16 @@
 										<li style="margin:10px 0 0 0;">Name your Slide<li>
 										<li style="margin:10px 0 0 0;">:<li>
 										<li>
-											<input type="text" id="slideName" name="slideName" class="popupTextbox" onkeyup="checkSlide()">
-											<span id="errormsg" style=" margin: 0 0 0 58px;"></span>
+											<input type="text" id="slideName" name="slideName" class="popupTextbox">
 										<li>
 										<li style="width:100%;">
 											<input type="button" value="Create" id="slideBtn" name="slideBtn" class="popupBtn">
-											<input type="hidden" id="valD" name="valD">
 										</li>
 									</ul>
 								</div>
 							</div> <!--your content end-->
 						</div> <!--toPopup end-->
-						<input type="hidden" id="contentId" name="contentId" value="<?echo $contentId?>">
+						<input type="hidden" id="contentId" name="contentId" value="<?echo $presnt_id?>">
 					</div>
 					<div id="backgroundPopup"></div>
 					<div id="allSlides" class="contentDisplay">

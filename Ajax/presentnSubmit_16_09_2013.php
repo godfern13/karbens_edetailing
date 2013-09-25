@@ -10,24 +10,15 @@
 	
 	$submitType = $_POST['queryFlag'];
 	
-	if($submitType == 0)//Adding Presentation
+	if($submitType == 0)//Adding Slides
 	{
 		$generalObj = new general();
 		$table_name	= 'content';
 		$table_col	= 'id';
-		$contentId	= $generalObj->getPK($table_name,$table_col);		
+		$contentId		= $generalObj->getPK($table_name,$table_col);
+		
 		$name 		= $_POST['pName'];
-		$brandId	= 1;
-		$prentnNaMe	=	preg_replace('/\s+/','',$name);
-		$foldrPth	=	$prentnNaMe.$contentId;
-		$path 		= 	'../images/'.$foldrPth.'/';
-		$pathPar	=	$path.'parent/';
-		$pathChld	=	$path.'child/';
-		mkdir($path);
-		mkdir($pathPar);
-		mkdir($pathChld);
-		$_SESSION['mainPresntnName'] = $foldrPth;
-		$contentId 	= $db->storePresentaions($contentId,$name,$brandId);
+		$contentId 	= $db->storePresentaions($contentId,$name);
 		//echo 'data:'.$contentId;
 		if ($contentId != false){
 			echo $contentId;
@@ -70,21 +61,6 @@
 		$name			= $row['name'];
 		
 		$callshare	= sendShareMail($emailId,$name);		
-	}
-
-	if($submitType == 5)//Checking for Presentations name
-	{
-		$id 				= $_POST['presntnId'];
-		$name 				= $_POST['presntnName'];
-		$checkPresentnName 	= $db->check_presentation($id,$name);
-		if($checkPresentnName == 0 ){
-			//Presentation name not found
-			echo '-1';
-		}
-		else{
-			//Presentation name found
-			echo "<img src='images/unavailable.png' title='Please choose another presentation name'></img>";
-		}
 	}	
 ?>
 

@@ -18,36 +18,17 @@ class DB_Functions {
         
     }
 
-    
-	/**
-     * Getting Brand details
-     */
-    /*public function getAllBrands($id) {
-		$query 	= "	SELECT brand.id,brand.name,brand.added_on,brand.updated_on
-					FROM brand
-					INNER JOIN user_vs_brands ON brand.id = user_vs_brands.brand_id
-					WHERE brand.id = ".$id." AND brand.del_flag = 0";
-        //echo $query;
-		$result = mysql_query($query)or die(mysql_error());
-        return $result;
-    }*/
-	
-	/**
+    /**
      * Adding new presentations
      * 
      */
-    public function storePresentaions($contentId, $name,$brandId) {
+    public function storePresentaions($contentId, $name) {
         // insert content into database
-        $query1 	= "	INSERT INTO content(id,name)VALUES(".$contentId.",'".$name."')";
-		$result = mysql_query($query1)or die(mysql_error());
+        $query 	= "	INSERT INTO content(id,name)VALUES(".$contentId.",'".$name."')";
+		$result = mysql_query($query)or die(mysql_error());
 		if ($result) {
             // get content details
             $id = mysql_insert_id(); // last inserted id
-			
-			//Inserting into mapping table
-			$query2 	= "	INSERT INTO brand_vs_contents(brand_id ,content_id)VALUES(".$brandId.",".$id.")";
-			$result = mysql_query($query2)or die(mysql_error());
-			
 			return $id;
 		}
 		else {
@@ -58,25 +39,10 @@ class DB_Functions {
 	/**
      * Getting Presenatation details
      */
-    public function getAllPresenatations($id) {
+    public function getAllPresenatations() {
 		$query 	= "	SELECT content.id,content.name,content.downld_status,content.isPublished,content.added_on,content.updated_on
-					FROM  content
-					INNER JOIN brand_vs_contents ON content.id = brand_vs_contents.content_id 
-					INNER JOIN brand ON brand_vs_contents.brand_id = brand.id
-					INNER JOIN user_vs_brands ON brand.id = user_vs_brands.brand_id 
-					INNER JOIN users ON user_vs_brands.user_id = users.id
-					WHERE brand.id = 1 AND users.id= ".$id." AND content.del_flag = 0";
-        $result = mysql_query($query)or die(mysql_error());
-        return $result;
-    }
-	
-	/**
-     * Getting Presenatation Name
-     */
-    public function getPresentatnName($id) {
-		$query 	= "	SELECT name
-					FROM  content
-					WHERE id= ".$id." AND del_flag = 0";
+					FROM content
+					WHERE content.del_flag = 0";
         $result = mysql_query($query)or die(mysql_error());
         return $result;
     }
@@ -119,7 +85,7 @@ class DB_Functions {
      * Adding new Slides
      * 
      */
-    public function storeSlide($prntId,$contentId, $name) {
+    public function storeSlide($contentId, $name) {
         // insert content into database
 		$query 	= "	INSERT INTO parent(id,content_id,name)VALUES(".$prntId.",".$contentId.",'".$name."')";
 		$result = mysql_query($query)or die(mysql_error());

@@ -20,11 +20,13 @@ $(document).ready(function(){
 	/********************************************************************
 	********************************************************************
 	********************************************************************/
-		
-	$("#frame").click(function(e){//alert('hi');
+	
+	$("#frame").click(function()
+	{
 		showParSpec();
 		$('.selected').removeClass('selected');
 	});
+	
 	
 	/***************************************************************
 	**********Dragging an element from the tools box****************
@@ -45,7 +47,6 @@ $(document).ready(function(){
 			objName = "#clonediv"+counter
 			$(objName).css({"left":pos.left,"top":pos.top});
 			$(objName).removeClass("drag");
-			
 			/*------------------------------------------- drag element within the frame --------------------------------*/
 			$(objName).draggable({
 				containment: 'parent',
@@ -61,9 +62,7 @@ $(document).ready(function(){
 			/*----------------------------------------- Function To Get Cordinates ----------------------------------*/
 				//var cordData = calCordinates(parentX,parentY,counter,childType);
 		}
-		
 	});
-	
 	/*------------------------------------------ drop an element function -----------------------------------------------*/
 	$("#frame").droppable({ 
 		drop: function(ev, ui) { 
@@ -72,7 +71,7 @@ $(document).ready(function(){
 			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
 			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
 			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}
-						
+		
 			if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
 				counter++;
 				zindexval++;
@@ -90,16 +89,15 @@ $(document).ready(function(){
 				});
 				/*---------------------------------- Get the dynamically item id -------------------------------*/
 				draggedNumber = ui.helper.attr('id').search(/drag([0-9])/)
-				itemDragged = "dragged1"
+				if(ui.helper.attr('id') == 'drag4'){ itemDragged = "dragged2" }
+				else{itemDragged = "dragged1"}
 				console.log(itemDragged)
 				$("#clonediv"+counter).addClass(itemDragged);
-				//alert(ui.helper.attr('id'));
-				//alert('calling in droppable');
 				var cordData = calCordinates(parentX,parentY,counter,childType);
 			}
 		}
 	});
-
+	
 	/***************************************************************
 	****************Moving an element to FRONT/BACK*****************
 	****************************************************************/
@@ -131,10 +129,7 @@ $(document).ready(function(){
 		$('#'+divId).css({'z-index':newIndex});
 		event.stopPropagation();
 	});
-	
 });
-
-
 
 /********************************************************************************************************************
 											PARENT FUNCTIONS START
@@ -150,7 +145,15 @@ function addParentSpec()
 	
 	var parentWdth	=	$("#frame").width();
 	var parentHght	=	$("#frame").height();
-	var parentBgClr	=	$("#frame").css("background-color");
+	var rgb	=	$("#frame").css("background-color");
+	
+	rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    var parentBgClr = hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+
+	
 	var parentName	=	$("#sepcName").val();
 	var pBgImgName	=	$("#pBgImgName").val();
 	var dataString	=	'parentWdth='+parentWdth+'&parentHght='+parentHght+'&parentBgClr='+parentBgClr+'&parentName='+parentName+'&pBgImgName='+pBgImgName+'&parentX='+parentX+'&parentY='+parentY;
@@ -167,7 +170,6 @@ function addParentSpec()
 		}
 	});
 }
-
 /*------------------------------------ OnChange Function ------------------------------------------------*/
 function chngeParSpec()
 {
@@ -183,7 +185,7 @@ function chngeParSpec()
 	var parentName	=	$("#sepcName").val();
 	var pBgImgName	=	$("#pBgImgName").val();
 	if(pBgImgName != ""){ $('#frame').css("background","url('images/parent/"+pBgImgName+"')no-repeat"); }
-	else{$("#frame").css("background",bColor);}
+	else{$("#frame").css("background",'#'+bColor);}
 	
 	var dataString	=	'parentWdth='+parentWdth+'&parentHght='+parentHght+'&parentBgClr='+bColor+'&parentName='+parentName+'&pBgImgName='+pBgImgName+'&parentX='+parentX+'&parentY='+parentY;
 	$.ajax({
@@ -201,15 +203,10 @@ function chngeParSpec()
 }
 /*------------------------------------- On click On Frame Function ------------------------------*/
 function showParSpec()
-{	
-	
+{
 	//$('#frame').click( function(event) {
-		
 		//if(event.target.id == 'frame')
-	//	{
-		//alert('prnt specification');
-		//alert(event.target.id);
-		
+		//{
 			$.ajax({
 				type: "POST",
 				url: "Ajax/showParSpec.php",
@@ -218,9 +215,7 @@ function showParSpec()
 					$('#specfcatnDiv').html(data);
 				}
 			});
-		
-	//	}
-		
+		//}
 	//});
 }
 /*------------------------------------------- Set Image To Frame Background --------------------------------*/
@@ -229,6 +224,7 @@ function ParntBgImgURL(upload_field) {
 		var reader = new FileReader();
 		reader.onload = function (e) { 
 			$('#frame').css("background","url('"+e.target.result+"')no-repeat");
+			$('#frame').css("background-size","cover");
 		};
 		reader.readAsDataURL(upload_field.files[0]);
 	}
@@ -276,18 +272,24 @@ function calCordinates(parentX,parentY,counter,childType)
 	addChildSpec(width,height,counter,insideX1,insideY1,childType);
 	
 	$("#chldImg"+counter).attr({width: width});
-			$("#chldImg"+counter).attr({height: height});
+	$("#chldImg"+counter).attr({height: height});
 	return corData;
 	
 }
 /*----------------------------------------- Add Child Specification ----------------------------------------------*/
 function addChildSpec(childWdth,childHeght,counter,chldX,chldY,childType)
-{  
-	//var childType		=	$('select#chldCntSel').val();
-	var childImgPath	=	$('input#chldImgName').val();
-	var childText		=	$('textarea#chldTxt').val();
-	var dataString	=	'childWdth='+childWdth+'&childHght='+childHeght+'&chldCnt='+counter+'&chldX='+chldX+'&chldY='+chldY+'&childType='+childType+'&childImgPath='+childImgPath+'&childText='+childText;
+{ 
 	$('#specLoader').show();
+	var childImgPath	=	$('input#chldImgName'+counter).val();
+	var childText		=	$('textarea#chldTxt'+counter).val();
+	var childTextClr	=	$('select#chldTxtClr'+counter).val();
+	var childTextSize	=	$('select#chldTxtSize'+counter).val(); 
+	var childVdoPath	=	$('input#childVdoPath'+counter).val(); 
+	var childRefLink	=	$('input#childRefLink'+counter).val(); 
+	var childRefPath	=	$('input#chldRefBgImg'+counter).val(); 
+	var dataString		=	'childWdth='+childWdth+'&childHght='+childHeght+'&chldCnt='+counter+'&chldX='+chldX+'&chldY='+chldY+'&childType='+childType+'&childImgPath='+childImgPath+'&childText='+childText
+						+'&childTextClr='+childTextClr+'&childTextSze='+childTextSize+'&childVdoPath='+childVdoPath+'&childRefLink='+childRefLink+'&childRefPath='+childRefPath;
+	
 	$.ajax({
 		type: "POST",
 		url: "Ajax/addChldSpec.php",
@@ -315,32 +317,19 @@ function chngChldSpec(chldCunt,childType)
 		$("#chldVdO"+chldCnt).attr({width: childWdth});
 		$("#chldVdO"+chldCnt).attr({height: childWdth});
 	}
+	if(childType == 4){
+		$('#chldRefImg'+chldCunt).css("width",childWdth);
+		$('#chldRefImg'+chldCunt).css("height",childHeght);
+	}
 	
-	var childX	=	parseFloat($('input#childX').val());
-	var childY	=	parseFloat($('input#childY').val());
+	var childX			=	parseFloat($('input#childX').val());
+	var childY			=	parseFloat($('input#childY').val());
 	
-	//var childType		=	$('select#chldCntSel').val();
-	var childText		=	$('textarea#chldTxt').val();
-	var childImgPath	=	$('input#chldImgName').val();
-	
-	
-	var dataString	=	'childWdth='+childWdth+'&childHght='+childHeght+'&chldCnt='+chldCunt+'&chldX='+childX+'&chldY='+childY+'&childType='+childType+'&childImgPath='+childImgPath+'&childText='+childText;
-	$.ajax({
-		type: "POST",
-		url: "Ajax/addChldSpec.php",
-		cache: false,
-		data: dataString,
-		success: function(data) { 
-			$('#specfcatnDiv').html(data);
-		}
-	});
+	addChildSpec(childWdth,childHeght,chldCunt,childX,childY,childType);
 }
 /*------------------------------------ OnClick of Child Div function --------------------------------------*/
 function showChildSpec(counter)
 {	
-	//alert('child specification');
-	//$('#clonediv'+counter).removeClass( 'drsElement' )
-	//alert('child called');
 	var dataStrng	=	'cunt='+counter;
 	$.ajax({
 		type: "POST",
@@ -352,32 +341,70 @@ function showChildSpec(counter)
 		}
 	});
 }
-
-/*----------------------------------- ----------------------------------------------------------*/
-/*function displyChdCont(counter)
-{
-	var chldCntSel = $('select#chldCntSel').val();
-	if(chldCntSel == '1')
-	{
-		$('#chldTxtCnt').show();
-		$('#chldImgCnt').hide();
-	}
-	else if(chldCntSel == '2')
-	{
-		$('#chldImgCnt').show();
-		$('#chldTxtCnt').hide();
-	}
-	else
-	{
-		$('#chldTxtCnt').hide();
-		$('#chldImgCnt').hide();
-	}
-}*/
+/*------------------------------------- Text Child Function -------------------------------------------*/
 function changeChildText(chldCunt,childType)
 {	
-	var childText	=	$('textarea#chldTxt').val();
+	var childText	=	$('textarea#chldTxt'+chldCunt).val();
 	$("#clonediv"+chldCunt).html(childText);
-	chngChldSpec(chldCunt,childType);
+	
+	var childWdth	=	parseFloat($('input#chldWdth').val());
+	var childHeght	=	parseFloat($('input#chldHght').val());
+	var childX		=	parseFloat($('input#childX').val());
+	var childY		=	parseFloat($('input#childY').val());
+	addChildSpec(childWdth,childHeght,chldCunt,childX,childY,childType);
+}
+
+function changeChildTextClr(chldCunt,childType)
+{
+	var textColor	=	$('select#chldTxtClr'+chldCunt).val();
+	if(textColor != ""){
+		$("#clonediv"+chldCunt).css("color",'#'+textColor);
+	}
+	else{
+		textColor	=	'#000';
+		$("#clonediv"+chldCunt).css("color",textColor);
+	}
+	
+	var childWdth	=	parseFloat($('input#chldWdth').val());
+	var childHeght	=	parseFloat($('input#chldHght').val());
+	var childX		=	parseFloat($('input#childX').val());
+	var childY		=	parseFloat($('input#childY').val());
+	addChildSpec(childWdth,childHeght,chldCunt,childX,childY,childType);
+}
+function changeChildTextSize(chldCunt,childType)
+{ 
+	var textSize	=	$('select#chldTxtSize'+chldCunt).val();
+	if(textSize != ""){
+		var textSizeV	=	textSize+'px';
+		$("#clonediv"+chldCunt).css("font-size",textSizeV);
+	}
+	else{
+		var textSizeV	=	'8px';
+		$("#clonediv"+chldCunt).css("font-size",textSizeV);
+	}
+	var childWdth	=	parseFloat($('input#chldWdth').val());
+	var childHeght	=	parseFloat($('input#chldHght').val());
+	var childX		=	parseFloat($('input#childX').val());
+	var childY		=	parseFloat($('input#childY').val());
+	addChildSpec(childWdth,childHeght,chldCunt,childX,childY,childType);
+}
+function changeFntWght(fontWght,chldCunt,childType)
+{
+	if(fontWght == 1)
+	{	
+		if($("#clonediv"+chldCunt).css("font-weight") == '700'){$("#clonediv"+chldCunt).css("font-weight",'normal');}
+		else{$("#clonediv"+chldCunt).css("font-weight",'bold')};
+	}
+	if(fontWght == 2)
+	{	
+		if($("#clonediv"+chldCunt).css("font-style") == 'italic'){$("#clonediv"+chldCunt).css("font-style",'normal');}
+		else{$("#clonediv"+chldCunt).css("font-style",'Italic')};
+	}
+	if(fontWght == 3)
+	{	
+		if($("#clonediv"+chldCunt).css("text-decoration") == 'underline'){$("#clonediv"+chldCunt).css("text-decoration",'none');}
+		else{$("#clonediv"+chldCunt).css("text-decoration",'underline')};
+	}
 }
 /*------------------------------------------- Set Image To Child Background --------------------------------*/
 function ChldBgImgURL(upload_field,chldCunt,childType) { 
@@ -388,21 +415,18 @@ function ChldBgImgURL(upload_field,chldCunt,childType) {
 			var chldWdth	=	$('#chldWdth').val();
 			var chldHght	=	$('#chldHght').val();
 			$('chldImg'+chldCunt).addClass('source-image');
-			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image">';
-			//var result = setImageSize(chldCunt,)
+			var ImgTag		=	'<img id="chldImg'+chldCunt+'" src="'+e.target.result+'" class="source-image" />';
 			$('#clonediv'+chldCunt).html(ImgTag);
 			$("#chldImg"+chldCunt).attr({width: chldWdth});
 			$("#chldImg"+chldCunt).attr({height: chldHght});
-						
 		};
 		reader.readAsDataURL(upload_field.files[0]);
 	}
-/*---------------------------------------------- Upload Image To Server Script --------------------------------*/
+	/*---------------------------------------------- Upload Image To Server Script --------------------------------*/
 	var re_text = /\.jpg|\.gif|\.jpeg/i;
 	var filename = upload_field.value;
 	if (filename.search(re_text) == -1) {
 		alert("File should be either jpg or gif or jpeg");
-		//upload_field.form.reset();
 		var bColor		=	$('#sepcBgColor').val();
 		$("#frame").css("background",bColor);
 		return false;
@@ -412,16 +436,70 @@ function ChldBgImgURL(upload_field,chldCunt,childType) {
 	upload_field.form.submit();
 	upload_field.form.action = '';
 	upload_field.form.target = '';
-	document.getElementById('chldImgName').value = filename;
-	chngChldSpec(chldCunt,childType);
+	document.getElementById('chldImgName'+chldCunt).value = filename;
+	
+	var childWdth	=	parseFloat($('input#chldWdth').val());
+	var childHeght	=	parseFloat($('input#chldHght').val());
+	var childX		=	parseFloat($('input#childX').val());
+	var childY		=	parseFloat($('input#childY').val());
+	addChildSpec(childWdth,childHeght,chldCunt,childX,childY,childType);
 }
+function ChldRefBgImgURL(upload_field,chldCunt,childType)
+{
+	if (upload_field.files && upload_field.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function (e) { 
+			var img = new Image();
+			var chldWdth	=	$('#chldWdth').val();
+			var chldHght	=	$('#chldHght').val();
+			var ImgTag		=	'<img id="chldRefImg'+chldCunt+'" src="'+e.target.result+'" class="source-image" />';
+			$('#clonediv'+chldCunt).html(ImgTag);
+			$("#chldRefImg"+chldCunt).attr({width: chldWdth});
+			$("#chldRefImg"+chldCunt).attr({height: chldHght});
+		};
+		reader.readAsDataURL(upload_field.files[0]);
+	}
+	/*---------------------------------------------- Upload Image To Server Script --------------------------------*/
+	var re_text = /\.jpg|\.gif|\.jpeg/i;
+	var filename = upload_field.value;
+	if (filename.search(re_text) == -1) {
+		alert("File should be either jpg or gif or jpeg");
+		$('#clonediv'+chldCunt).html('');
+		return false;
+	}
+	upload_field.form.action = 'uploadChildRefImg.php';
+	upload_field.form.target = 'upload_iframe';
+	upload_field.form.submit();
+	upload_field.form.action = '';
+	upload_field.form.target = '';
+	document.getElementById('chldRefBgImg'+chldCunt).value = filename;
+	
+	var childWdth	=	parseFloat($('input#chldWdth').val());
+	var childHeght	=	parseFloat($('input#chldHght').val());
+	var childX		=	parseFloat($('input#childX').val());
+	var childY		=	parseFloat($('input#childY').val());
+	addChildSpec(childWdth,childHeght,chldCunt,childX,childY,childType);
+}
+/*------------------------------------- Function to change Child Video ----------------------------------*/
+function changeChildVdo(chldCnt,childType)
+{
+	var childWdth	=	parseFloat($('input#chldWdth').val());
+	var childHeght	=	parseFloat($('input#chldHght').val());
+	var childVdo	=	$('input#childVdoPath'+chldCnt).val();
+	//var chldVdoFrm	=	' <iframe src="'+childVdo+'" frameborder="0" id="chldVdO'+chldCnt+'"></iframe>';
+	$("#clonediv"+chldCnt).html(childVdo);
+	$("#chldVdO"+chldCnt).attr({width: childWdth});
+	$("#chldVdO"+chldCnt).attr({height: childHeght});
+	
+	
+	var childX		=	parseFloat($('input#childX').val());
+	var childY		=	parseFloat($('input#childY').val());
+	addChildSpec(childWdth,childHeght,chldCnt,childX,childY,childType);
+}
+
 /********************************************************************************************************************
 											CHILD FUNCTION ENDS
 *********************************************************************************************************************/
-/*Setting image height and width*/
-/*function setImageSize(){
-
-}*/
 
 /********************************************************************************************************************
 											SAVE SLIDE FUNCTION STARTS
@@ -431,9 +509,9 @@ function slideSaveCall()
 	//document.getElementById("frame").disabled = true;
 	//document.getElementById("rightDiv").disabled = true;
 	var chldCunter	=	$('input#chldCnt').val();
-	var prntId	=	$('input#prntId').val();
+	//var prntId	=	$('input#prntId').val();
 	
-	var dataStrng	=	'chldCunter='+chldCunter + '&parent_id=' + prntId;
+	var dataStrng	=	'chldCunter='+chldCunter;
 	
    // alert(dataStrng)
 	$.ajax({
@@ -442,9 +520,7 @@ function slideSaveCall()
 		cache: false,
 		data:dataStrng,
 		success: function(data) { 
-			//alert("Presentation Slide Added Sucessfully");
-			//alert(data);
-			setTimeout("window.location='slide.php?id="+btoa(data)+"'",1000);
+			setTimeout("window.location='add_slide.php?id="+btoa(data)+"'",300);
 		}
 	});
 }
@@ -467,16 +543,4 @@ function saveDta()
 		success: function(data) {alert('sucess')
 		}
 	});
-}
-/************************** Function to hange Child Video ****************************/
-function changeChildVdo(chldCnt,childType)
-{
-	var chldWdth	=	$('#chldWdth').val();
-	var chldHght	=	$('#chldHght').val();
-	var childVdo	=	$('input#childVdoPath').val();
-	var chldVdoFrm	=	' <iframe src="'+childVdo+'" frameborder="0" id="chldVdO'+chldCnt+'"></iframe>';
-	$("#clonediv"+chldCnt).html(chldVdoFrm);
-	$("#chldVdO"+chldCnt).attr({width: chldWdth});
-	$("#chldVdO"+chldCnt).attr({height: chldHght});
-	chngChldSpec(chldCnt,childType);
 }

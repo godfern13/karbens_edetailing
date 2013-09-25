@@ -3,16 +3,9 @@
 require_once("../classes/csGeneral.php");
 require_once("../classes/db_functions.php");
 session_start();
-	
+
 	$db 			= new DB_Functions();
-	
-	$user_id		= $_POST['id'];
-	/*$query			= "SELECT brand_id FROM user_vs_brands WHERE user_id=".$user_id." AND del_flag = 0";
-	$result			= mysql_query($query)or die(mysql_error());
-	$rows			= mysql_fetch_assoc($result);
-	$brandId		= $rows['brand_id'];*/
-	
-	$content 		= $db->getAllPresenatations($user_id);
+	$content 		= $db->getAllPresenatations();
 	$content_nums 	= mysql_num_rows($content);	
 	$data 			= "";
 	
@@ -23,8 +16,7 @@ session_start();
 			$content_id	= $rows['id'];
 			$name		= $rows['name'];
 			$publish 	= $rows['isPublished'];
-			$prentnNaMe	=	preg_replace('/\s+/','',$name);
-			$foldrPath	=	$prentnNaMe.$content_id;
+			
 			//Check if Content have parent
 			$parent 		= $db->getSlides($content_id);
 			$parent_nums 	= mysql_num_rows($parent);
@@ -38,7 +30,7 @@ session_start();
 						$image = 'images/default.jpg';
 					}
 					else{
-						$image = 'images/'.$foldrPath.'/parent/'.$imgpath.'';
+						$image = 'images/child/'.$imgpath.'';
 					}
 				}				
 			}

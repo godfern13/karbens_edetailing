@@ -10,6 +10,10 @@ require_once("../library/dbcon.php");
 	$slides_nums 	= mysql_num_rows($slides);	
 	$data 			= "";
 	
+	$PresntnName 	= 	$db->getPresentatnName($contentId);
+	$rowsP 			= 	mysql_fetch_assoc($PresntnName);
+	$presnTantName	=	preg_replace('/\s+/','',$rowsP['name']);
+	$foldrPath		=	trim($presnTantName).$contentId;
 	if($slides_nums > 0){
 	
 		$data = "<div id='prsntDiv'>";
@@ -18,11 +22,12 @@ require_once("../library/dbcon.php");
 			$name		= $rows['name'];
 			$imgpath 	= $rows['content_url'];
 			
+			
 			if($imgpath == ''){
 				$image = 'images/default.jpg';
 			}
 			else{
-				$image = 'images/child/'.$imgpath.'';
+				$image = "images/".$foldrPath."/parent/".$imgpath."";
 			}
 			
 			$data .= '	<a href="slide.php?id='.base64_encode($id).'">

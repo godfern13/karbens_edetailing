@@ -1,19 +1,19 @@
 <?php 
 	require_once "library/functions.php";
-	include("classes/classes.php");
 	sessionCheck();
 	
 	if(!(isset($_SESSION["msg"]))){
 		$_SESSION["msg"]="";
 	}
 	
-	$contentId = base64_decode($_GET['id']);
+	$presnt_id = base64_decode($_GET['id']);
+	// session_start();
+	 include("classes/classes.php");
 	 $addContentObj = new contentClass();
-	 $addContentObj->addToContentArray($contentId);
-	 $_SESSION['contentCnt'] = $contentId;
-	 $_SESSION['contentObject'.$contentId] = serialize($addContentObj);
-	 
-	 
+	 $contentCnt  = $addContentObj->getContentCount();
+	 $addContentObj->addToContentArray($contentCnt);
+	 $_SESSION['contentCnt'] = $contentCnt;
+	 $_SESSION['contentObject'.$contentCnt] = serialize($addContentObj);
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,7 +28,7 @@
 				min-height:463px;
 				width:100%;
 				text-align:center;
-				padding: 0px 0 0;
+				padding: 50px 0 0;
 			}
 		</style>
 		
@@ -44,7 +44,7 @@
 			<div id="mainWrapper">
 				<div id="container">
 					<!--<h2>Welcome To The dashboard</h2>-->
-					<div id="menu">
+					<div id="prsntnMenu">
 						<?if($_SESSION["msg"]!=''){?>
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>
@@ -59,18 +59,16 @@
 										<li style="margin:10px 0 0 0;">Name your Slide<li>
 										<li style="margin:10px 0 0 0;">:<li>
 										<li>
-											<input type="text" id="slideName" name="slideName" class="popupTextbox" onkeyup="checkSlide()">
-											<span id="errormsg" style=" margin: 0 0 0 58px;"></span>
+											<input type="text" id="slideName" name="slideName" class="popupTextbox">
 										<li>
 										<li style="width:100%;">
 											<input type="button" value="Create" id="slideBtn" name="slideBtn" class="popupBtn">
-											<input type="hidden" id="valD" name="valD">
 										</li>
 									</ul>
 								</div>
 							</div> <!--your content end-->
 						</div> <!--toPopup end-->
-						<input type="hidden" id="contentId" name="contentId" value="<?echo $contentId?>">
+						<input type="text" id="contentId" name="contentId" value="<?echo $presnt_id?>">
 					</div>
 					<div id="backgroundPopup"></div>
 					<div id="allSlides" class="contentDisplay">

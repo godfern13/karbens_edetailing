@@ -14,7 +14,7 @@
 	$parentBgClr	=	$_POST['parentBgClr'];
 	$parentX		=	$_POST['parentX'];
 	$parentY		=	$_POST['parentY'];
-	$parentName2	=	'Slide'.$parentCount;
+	$parentName2	=	$_SESSION['ParntName'];
 	$parentName		=	$_POST['parentName'];
 	$parentBgImg	=	$_POST['pBgImgName'];
 	$childCount		=	0;

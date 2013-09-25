@@ -25,18 +25,12 @@ body {
 #frame{
 	width:650px;
 	height:550px;
-	background:#fff;
+	background:#185871;
 	background-repeat: repeat-y;
     background-position: 0 0;
     border:1px solid black;
-    /*float:left;*/
-	position: absolute;
-	z-index: 500;
-	display: inline-block;   
-    margin: 0 auto;
+    float:left;
 }
-}
-/********************** Change 17/09/2013 START************************/
 #drag1 {
 	margin-left:15px;
 	margin-top:15px;
@@ -67,7 +61,16 @@ body {
 	color:#fff;
 	text-align:center;
 }
-/********************** Change 17/09/2013 END************************/
+#drag4 {
+	margin-left:15px;
+	margin-top:15px;
+	width:70px;
+	height:25px;
+	float:left;
+	border:1px solid #000;
+	color:#fff;
+	text-align:center;
+}
 .ui-draggable-helperMoving {
 	border: 1px dotted #000;
 	padding: 6px;
@@ -84,29 +87,20 @@ body {
 /* classes for dragged stuff */
 .dragged1 {
 	position:absolute; 
-	border:1px dashed #000;
+	border:1px dashed #fff;
 	/*background:#fff;*/
 	width:200px;
 	height:100px;
-	z-index: 1000;
+	color:#fff;
 }
-
-/******************************************SEND TO BACK & BRING TO FRONT STYLES******************************************************/
-.backBtn{
-float:left;
-background:#8F9DB7;
-border:1px solid;
-margin: 0 0 0 10px;
-cursor:pointer;
+/* classes for dragged stuff */
+.dragged2 {
+	position:absolute; 
+	border:1px dashed #000;
+	/*background:#fff;*/
+	width:70px;
+	height:25px;
 }
-.frntBtn{
-float:left;
-background:#8F9DB7;
-border:1px solid;
-margin: 0 0 0 10px;
-cursor:pointer;
-}
-/************************************************************************************************************************/
 #element{
 	border:1px solid red
 }
@@ -130,12 +124,15 @@ cursor:pointer;
 	list-style:none;
 }
 #rightDiv{
-	/*float:left;*/
+	float:left;
 	margin:0;
 	padding:0;
 	width:300px;
-	 position: absolute;
-	z-index: 500;
-	display: inline-block;   
-    margin: 0 auto;
+}
+#footer{
+	width:100%;
+	height:15px;
+	float:left;
+	margin:0;
+	padding:0;
 }

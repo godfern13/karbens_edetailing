@@ -525,12 +525,12 @@ min-height: 400px;
 }
 
 #frame{
-/*position:absolute;*/
-margin:0 0 0;
-padding:0 0 0;
-width:800px;
-min-height: 400px;
-z-index: 0;
+	width:800px;
+	height:550px;
+	background:#185871;
+	background-repeat: repeat-y;
+    background-position: 0 0;
+	z-index: 0;
 }
 
 #rightDiv{
@@ -547,7 +547,7 @@ float:left;
 margin:0 0 0;
 padding:0 0 0;
 width:299px;
-min-height: 200px;
+min-height: 350px;
 }
 
 #options{
@@ -593,7 +593,7 @@ cursor:move;
 	height:60px;
 	float:left;
 	border:1px solid #000;
-	color:#fff;
+	color:#000;
 	text-align:center;
 }
 #drag2 {
@@ -603,7 +603,7 @@ cursor:move;
 	height:60px;
 	float:left;
 	border:1px solid #000;
-	color:#fff;
+	color:#000;
 	text-align:center;
 }
 #drag3 {
@@ -613,7 +613,17 @@ cursor:move;
 	height:60px;
 	float:left;
 	border:1px solid #000;
-	color:#fff;
+	color:#000;
+	text-align:center;
+}
+#drag4 {
+	margin-left:15px;
+	margin-top:15px;
+	width:70px;
+	height:25px;
+	float:left;
+	border:1px solid #000;
+	color:#000;
 	text-align:center;
 }
 /********************** Change 17/09/2013 END************************/
@@ -633,11 +643,19 @@ cursor:move;
 /* classes for dragged stuff */
 .dragged1 {
 	position:absolute; 
-	border:1px dashed #000;
+	border:1px dashed #fff;
 	/*background:#fff;*/
 	width:200px;
 	height:100px;
-	z-index: 1000;
+	color:#fff;
+}
+/* classes for dragged stuff */
+.dragged2 {
+	position:absolute; 
+	border:1px dashed #000;
+	/*background:#fff;*/
+	width:70px;
+	height:25px;
 }
 
 /******************************************SEND TO BACK & BRING TO FRONT STYLES******************************************************/
@@ -718,7 +736,13 @@ margin: 0 0 25px 140px;
 text-align: left;
 width: 260px;
 }
-
+#footer{
+	width:100%;
+	height:15px;
+	float:left;
+	margin:0;
+	padding:0;
+}
 /*--------------------------------FOOTER STYLES-------------------------------*/
 #footerDiv{
 float:left;

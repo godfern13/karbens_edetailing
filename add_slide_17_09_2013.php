@@ -7,11 +7,13 @@
 		$_SESSION["msg"]="";
 	}
 	
-	$contentId = base64_decode($_GET['id']);
+	$presnt_id = base64_decode($_GET['id']);
+		 
 	 $addContentObj = new contentClass();
-	 $addContentObj->addToContentArray($contentId);
-	 $_SESSION['contentCnt'] = $contentId;
-	 $_SESSION['contentObject'.$contentId] = serialize($addContentObj);
+	 $contentCnt  = $addContentObj->getContentCount();
+	 $addContentObj->addToContentArray($contentCnt);
+	 $_SESSION['contentCnt'] = $contentCnt;
+	 $_SESSION['contentObject'.$contentCnt] = serialize($addContentObj);
 	 
 	 
 ?>
@@ -44,7 +46,7 @@
 			<div id="mainWrapper">
 				<div id="container">
 					<!--<h2>Welcome To The dashboard</h2>-->
-					<div id="menu">
+					<div id="prsntnMenu">
 						<?if($_SESSION["msg"]!=''){?>
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>
@@ -70,7 +72,7 @@
 								</div>
 							</div> <!--your content end-->
 						</div> <!--toPopup end-->
-						<input type="hidden" id="contentId" name="contentId" value="<?echo $contentId?>">
+						<input type="hidden" id="contentId" name="contentId" value="<?echo $presnt_id?>">
 					</div>
 					<div id="backgroundPopup"></div>
 					<div id="allSlides" class="contentDisplay">

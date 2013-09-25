@@ -1,7 +1,7 @@
 <?php 
 	require_once "library/functions.php";
 	sessionCheck();
-	require_once ("../classes/csGeneral.php");
+	require_once ("../include/csGeneral.php");
 	
 	$generalObj = new general();
 	

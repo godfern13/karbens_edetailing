@@ -27,6 +27,9 @@
 		<script src="script/popup.js" type="text/javascript"></script>
 		<script src="js/dashboard.js" type="text/javascript"></script>
 		<script src="js/loadDashboard.js" type="text/javascript"></script>
+		
+		
+		
 	</head>
 	<body id="admin_home">
 		<div id="wrapper">
@@ -34,7 +37,7 @@
 			<div id="mainWrapper">
 				<div id="container">
 					<!--<h2>Welcome To The dashboard</h2>-->
-					<div id="menu">
+					<div id="prsntnMenu">
 						<?if($_SESSION["msg"]!=''){?>
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>

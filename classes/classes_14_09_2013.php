@@ -4,7 +4,6 @@
 	************************************************************************************************************/
 	class contentClass
 	{
-		private $id;/*Added*/
 		private $name;
 		private $addedDate;
 		private $updatedDate;
@@ -12,22 +11,10 @@
 		private $contentCunt;
 		private $parents 	= 	array();
 		private $content	=	array();
-		
-		function  __construct()
+		function  _construct()
 		{
-			
-		}
-				
-		//Getters and Setters Methods
-		public function getId() {
-			return $this->id;
-		}
 		
-		public function setId($x) {
-			$this->id = $x;
-			
 		}
-		
 		//---------------------------------- Function To Add & Get && Update Content Count -------------------------------------//
 		public function addToContentArray($content)
 		{
@@ -100,7 +87,7 @@
 			$prntId		= $generalObj->getPK($table_name,$table_col);
 			
 			$contentId = $generalObj->getLastId('content');//Fetch the content id Content Table
-			//$url = '';
+			$url = '';
 			
 			$parentName			=	$this->parName;
 			$parentCretedDte	=	$this->parCrDte;
@@ -113,13 +100,6 @@
 			$parentX			=	$this->parentX;
 			$parentY			=	$this->parentY;
 			
-			if($parentBgImg == ''){
-				$imgUrl = '';
-			}
-			else{
-				$imgUrl = $parentBgImg;
-			}
-			
 			if($childCount> 0 ){
 				$chldStatus = 1;//Has Child
 			}
@@ -131,10 +111,13 @@
 			
 			//--------------------------------- Sql Statement Save parent Query ----------------------------------------------------//
 			$query 	= "	INSERT INTO parent(id,content_id,name,frame,content_url,has_childs,added_on,updated_on)
-									VALUES(".$prntId.",".$contentId.",'".$parentName."','".$prntFrameData."','".$imgUrl."',".$chldStatus.",'".$parentCretedDte."','".$parentUpdtedDte."')";
+									VALUES(".$prntId.",".$contentId.",'".$parentName."','".$prntFrameData."','".$url."',".$chldStatus.",'".$parentCretedDte."','".$parentUpdtedDte."')";
 			//echo $query;
 			$result = mysql_query($query)or die(mysql_error());
 			//---------------------------------------------------------------------------------------------------------------------//
+			
+			/*$data	=	'<br>Slide Name:'.$parentName.' CreatedDate:'.$parentCretedDte.' Width:'.$parentWidth.' Height:'.$parentheight;
+			return $data;*/
 		}
 		//----------------------------------------- Function to Add & Get Child Count -----------------------------//
 		public function addChild($childArray)
@@ -155,19 +138,6 @@
 		//--------------------------------------- Function to Get parent Sepcifcation ----------------------------//
 		public function getParentSpecification()
 		{
-			$colorPick	=	'';
-			$colorArray	=	array('ffffff','ffce93','fffc9e','ffffc7','9aff99','96fffb','cdffff','185871','cbcefb','cfcfcf','fd6864',
-								'fe996b','fffe65','fcff2f','67fd9a','38fff8','68fdff','9698ed','c0c0c0','fe0000','f8a102','ffcc67',
-								'f8ff00','34ff34','68cbd0','34cdf9','6665cd','9b9b9b','cb0000','f56b00','ffcb2f','ffc702','32cb00',
-								'00d2cb','3166ff','6434fc','656565','9a0000','ce6301','cd9934','999903','009901','329a9d','3531ff',
-								'6200c9','343434','680100','963400','986536','646809','036400','34696d','00009b','303498','000000',
-								'330001','643403','663234','343300','013300','003532','010066','340096');
-			for($i=0;$i<count($colorArray);$i++)
-			{
-				if($this->parentBg == $colorArray[$i]){ $selCol	=	'selected'; }
-				else{$selCol	=	''; } 
-				$colorPick .= '<option value="'.$colorArray[$i].'" '.$selCol.'>#'.$colorArray[$i].'</option>';
-			}
 			$speDisp	=	'';
 			$speDisp	.=	"<table id='specfcatnTabl'>";
 			$speDisp	.=  "<tr>";
@@ -195,10 +165,7 @@
 			$speDisp	.=	"<tr>";
 			$speDisp	.=	"<td>Bg Color</td>";
 			$speDisp	.=	"<td>:</td>";
-			$speDisp	.=	"<td>
-							<select id='sepcBgColor' name='sepcBgColor' onchange='return chngeParSpec()' style='width:120px'>
-								$colorPick
-							</select>";
+			$speDisp	.=	"<td><input type='text' name='sepcBgColor' id='sepcBgColor' onchange='return chngeParSpec()' value='".$this->parentBg."'/></td>";
 			$speDisp	.=	"</tr>";
 			$speDisp	.=	"<tr height='5px'></tr>";
 			$speDisp	.=	"<tr>";
@@ -229,21 +196,15 @@
 		private	$childNo;
 		private	$childX;
 		private	$childY;
-		private $childCntType;	// Type of child content 1: Test; 2: Image; 3:Video; 4:Reference
+		private $childCntType;	// Type of child content 1: Test; 2: Image
 		private $childImgPath;
 		private $childText;
-		private $childTextClr;
-		private $childTextSize;
-		private	$childVdoPath;
-		private	$childRefLink;
-		private $childRefLinkBg;
-		private	$i;
 		function  _construct()
 		{
 		
 		}
 		//------------------------------------------ Function To Add Child Specification ---------------------------------------------------//
-		public function addChildSpecification($childName,$childCretedDte,$childUpdtedDte,$childWidth,$childheight,$childNo,$childX,$childY,$childCntType,$childText,$childImgPath,$childTextClr,$childTextSize,$childVdoPath,$childRefLink,$childRefLinkBg)
+		public function addChildSpecification($childName,$childCretedDte,$childUpdtedDte,$childWidth,$childheight,$childNo,$childX,$childY,$childCntType,$childText,$childImgPath)
 		{
 			$this->chldName		=	$childName;
 			$this->chldCrDte	=	$childCretedDte;
@@ -256,11 +217,6 @@
 			$this->childCntType	=	$childCntType;
 			$this->childText	=	$childText;
 			$this->childImgPath	=	$childImgPath;
-			$this->childTextClr	=	$childTextClr;
-			$this->childTextSize=	$childTextSize;
-			$this->childVdoPath	=	$childVdoPath;
-			$this->childRefLink	=	$childRefLink;
-			$this->childRefLinkBg	=	$childRefLinkBg;
 		}
 		public function saveChildData()
 		{
@@ -287,42 +243,53 @@
 			$childY			=	$this->childY;
 			$childCntType	=	$this->childCntType;
 			$childText		=	$this->childText;
-			$childTextClr	=	$this->childTextClr;
-			$childTextSize	=	$this->childTextSize;
 			$childImgPath	=	$this->childImgPath;
-			$childVdoPath	=	$this->childVdoPath;
-			$childRefLink	=	$this->childRefLink;
-			$childRefLinkBg	=	$this->childRefLinkBg;
 			
-			$childCntType = 0;
-			$childImgPath = '';
+			//if($childCntType == ''){
+				$childCntType = 0;
+			//}
+			
+			//if($childCntType == 1){
+				$childImgPath = '';
+			//}
+			$childFrameData = $childWidth.','.$childheight.','.$childX.','.$childY;
 			
 			//-------------------------------- Query to add Child Data ---------------------------------------------//
 			$query = "	INSERT INTO child(id,parent_id,name,type,content_url,frame,isAnimated,animType,animPathCord,delayTime,content_extention,added_on,updated_on)
 									VALUES(".$chldId.",".$parentId.",'".$childName."',".$childCntType.",'".$childImgPath."','".$childFrameData."',".$animated.",'".$animationType."','".$animationPathCord."','".$delaySlideTime."','".$ext."','".$childCretedDte."','".$childUpdtedDte."')";
+			echo $query;
 			$result = mysql_query($query)or die(mysql_error());
+			
+			//------------------------------------------------------------------------------------------------------//
+			
+			/*$data11	=	$childX.'==='.$childY.'=='.$childText.'==='.$childImgPath;
+			return $data11;*/
 		}
 		//------------------------------------------------- Function to Get Child Specification ----------------------------------------------//
 		public function getChildSpecification()
 		{
-			$i				=	0;
-			
 			$chldspeDisp	=	'';
 			$chldspeDisp	.=	"<table id='specfcatnTabl'>";
 			$chldspeDisp	.=  "<tr>";
 			$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>Specifications<input type='hidden' name='chldCnt' id='chldCnt' value='".$this->childNo."'></td>";
 			$chldspeDisp	.=	"</tr>";
+			/*$chldspeDisp	.=	"<tr height='5px'></tr>";
+			$chldspeDisp	.=	"<tr>";
+			$chldspeDisp	.=	"<td>Name</td>";
+			$chldspeDisp	.=	"<td>:</td>";
+			$chldspeDisp	.=	"<td><input type='text' name='chldName' id='chldName' onchange='return changeWdth()' value='".$this->chldName."'/></td>";
+			$chldspeDisp	.=	"</tr>";*/
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
 			$chldspeDisp	.=	"<tr>";
 			$chldspeDisp	.=	"<td>Width</td>";
 			$chldspeDisp	.=	"<td>:</td>";
-			$chldspeDisp	.=	"<td><input type='text' name='chldWdth' id='chldWdth' onchange='return chngChldSpec($this->childNo,$this->childCntType)' value='".$this->chldWdth."'/></td>";
+			$chldspeDisp	.=	"<td><input type='text' name='chldWdth' id='chldWdth' onchange='return chngChldSpec($this->childNo)' value='".$this->chldWdth."'/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
 			$chldspeDisp	.=	"<tr>";
 			$chldspeDisp	.=	"<td>Height</td>";
 			$chldspeDisp	.=	"<td>:</td>";
-			$chldspeDisp	.=	"<td><input type='text' name='chldHght' id='chldHght' onchange='return chngChldSpec($this->childNo,$this->childCntType)' value='".$this->chldHght."'/></td>";
+			$chldspeDisp	.=	"<td><input type='text' name='chldHght' id='chldHght' onchange='return chngChldSpec($this->childNo)' value='".$this->chldHght."'/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
 			$chldspeDisp	.=	"<tr>";
@@ -337,105 +304,31 @@
 			$chldspeDisp	.=	"<td><input type='text' name='childY' id='childY' value='".$this->childY."' readonly/></td>";
 			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"<tr height='5px'></tr>";
-			if($this->childCntType == 1)
-			{
-				$Sizeoption		=	'';
-				for($i=8;$i<=36;$i++)
-				{
-					if($this->childTextSize == $i){ $selected	=	'Selected';}
-					else{ $selected	=	''; }
-					$Sizeoption	.=	'<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
-				}
-				$colorPick2	=	'';
-				$colorArray2	=	array('ffffff','ffce93','fffc9e','ffffc7','9aff99','96fffb','cdffff','185871','cbcefb','cfcfcf','fd6864',
-									'fe996b','fffe65','fcff2f','67fd9a','38fff8','68fdff','9698ed','c0c0c0','fe0000','f8a102','ffcc67',
-									'f8ff00','34ff34','68cbd0','34cdf9','6665cd','9b9b9b','cb0000','f56b00','ffcb2f','ffc702','32cb00',
-									'00d2cb','3166ff','6434fc','656565','9a0000','ce6301','cd9934','999903','009901','329a9d','3531ff',
-									'6200c9','343434','680100','963400','986536','646809','036400','34696d','00009b','303498','000000',
-									'330001','643403','663234','343300','013300','003532','010066','340096');
-				for($cj=0;$cj<count($colorArray2);$cj++)
-				{
-					if($this->childTextClr == $colorArray2[$cj]){ $selCol	=	'selected'; }
-					else{$selCol	=	''; } 
-					$colorPick2 .= '<option value="'.$colorArray2[$cj].'" '.$selCol.'>#'.$colorArray2[$cj].'</option>';
-				}
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Text</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td style='text-align:center'>
-										<textarea name='chldTxt$this->childNo' id='chldTxt$this->childNo' onchange='return changeChildText($this->childNo,$this->childCntType)'>$this->childText</textarea>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-				$chldspeDisp	.=	"<tr height='5px'></tr>";
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Color</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td style=''>
-										<select name='chldTxtClr$this->childNo' id='chldTxtClr$this->childNo' onchange='return changeChildTextClr($this->childNo,$this->childCntType)' style='width:120px'>
-											$colorPick2
-										</select>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-				$chldspeDisp	.=	"<tr height='5px'></tr>";
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Size</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td style=''>
-										<select name='chldTxtSize$this->childNo' id='chldTxtSize$this->childNo' onchange='return changeChildTextSize($this->childNo,$this->childCntType)' style='width:120px'>
-											$Sizeoption
-										</select>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-				$chldspeDisp	.=	"<tr height='5px'></tr>";
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Style</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td style=''>
-										<table>
-											<tr>
-												<td width='20px' style='border:1px solid #fff;background:#000;cursor:pointer;color:#fff' onclick='return changeFntWght(1,$this->childNo,$this->childCntType)'><b>B</b></td><td width='2px'></td>
-												<td width='20px' style='border:1px solid #fff;background:#000;cursor:pointer;font-style:Italic;color:#fff' onclick='return changeFntWght(2,$this->childNo,$this->childCntType)'>I</td><td width='2px'></td>
-												<td width='20px' style='border:1px solid #fff;background:#000;cursor:pointer;color:#fff' onclick='return changeFntWght(3,$this->childNo,$this->childCntType)'><u>U</u></td><td width='2px'></td>
-											</tr>
-										</table>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-			}
-			else if($this->childCntType == 2){ 
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Image</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td style='text-align:center'>
-										<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
-										<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo,$this->childCntType)'/>
-										<input type='hidden' name='chldImgName$this->childNo' id='chldImgName$this->childNo' value='".$this->childImgPath."' /></form>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-			}
-			else if($this->childCntType == 3){
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Video Path</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td><input type='text' name='childVdoPath$this->childNo' id='childVdoPath$this->childNo' onchange='return changeChildVdo($this->childNo,$this->childCntType)' value='$this->childVdoPath'/></td>";
-				$chldspeDisp	.=	"</tr>";
-			}
-			else if($this->childCntType == 4){
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Bg Image</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td>
-										<form name='childRefImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
-										<input type='file' name='chldRefBgImg' id='chldRefBgImg' onchange='return ChldRefBgImgURL(this,$this->childNo,$this->childCntType)'/>
-										<input type='hidden' name='chldRefBgImg$this->childNo' id='chldRefBgImg$this->childNo' value='".$this->childRefLinkBg."' /></form>
-									</td>";
-				$chldspeDisp	.=	"</tr>";
-			
-				$chldspeDisp	.=	"<tr>";
-				$chldspeDisp	.=	"<td>Link</td>";
-				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td><input type='text' name='childRefLink$this->childNo' id='childRefLink$this->childNo' value='$this->childRefLink' onchange='return chngChldSpec($this->childNo,$this->childCntType)'/></td>";
-				$chldspeDisp	.=	"</tr>";
-			}
+			$chldspeDisp	.=	"<tr>";
+			$chldspeDisp	.=	"<td>Content</td>";
+			$chldspeDisp	.=	"<td>:</td>";
+			$chldspeDisp	.=	"<td>
+									<select name='chldCntSel' id='chldCntSel' onchange='return displyChdCont($this->childNo)'>
+										<option value='0'>Select</option>
+										<option value='1'>Text</option>
+										<option value='2'>Image</option>
+									</select>
+								</td>";
+			$chldspeDisp	.=	"</tr>";
+			$chldspeDisp	.=	"<tr height='5px'></tr>";
+			$chldspeDisp	.=  "<tr id='chldTxtCnt' style='display:none'>";
+			$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+									<textarea name='chldTxt' id='chldTxt' onchange='return changeChildText($this->childNo)'>$this->childText</textarea>
+								</td>";
+			$chldspeDisp	.=	"</tr>";
+			$chldspeDisp	.=	"<tr height='5px'></tr>";
+			$chldspeDisp	.=  "<tr id='chldImgCnt' style='display:none'>";
+			$chldspeDisp	.=	"<td colspan='3' style='text-align:center'>
+									<form name='childImgFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
+									<input type='file' name='chldImg' id='chldImg' onchange='return ChldBgImgURL(this,$this->childNo)'/>
+									<input type='text' name='chldImgName' id='chldImgName' value='".$this->childImgPath."' /></form>
+								</td>";
+			$chldspeDisp	.=	"</tr>";
 			$chldspeDisp	.=	"</table>";
 			
 			return $chldspeDisp;

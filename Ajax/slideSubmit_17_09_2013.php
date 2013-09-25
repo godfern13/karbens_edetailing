@@ -18,9 +18,10 @@
 		$prntId		= $generalObj->getPK($table_name,$table_col);
 		
 		$contentId 	= $_POST['c_id'];
-		$_SESSION['ParntName'] = $_POST['sName'];
+		$name 		= $_POST['sName'];
 		
-		//$parentId 	= $db->storeSlide($prntId,$contentId,$name);
+		$parentId 	= $db->storeSlide($prntId,$contentId,$name);
+		//echo 'data:'.$parentId;
 		if ($parentId != false){
 			echo $parentId;
 		}

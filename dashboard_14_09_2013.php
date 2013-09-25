@@ -19,7 +19,7 @@
 				min-height:463px;
 				width:100%;
 				text-align:center;
-				padding: 0px 0 0;
+				padding: 50px 0 0;
 			}
 		</style>
 		
@@ -27,6 +27,8 @@
 		<script src="script/popup.js" type="text/javascript"></script>
 		<script src="js/dashboard.js" type="text/javascript"></script>
 		<script src="js/loadDashboard.js" type="text/javascript"></script>
+		
+		
 	</head>
 	<body id="admin_home">
 		<div id="wrapper">
@@ -34,7 +36,7 @@
 			<div id="mainWrapper">
 				<div id="container">
 					<!--<h2>Welcome To The dashboard</h2>-->
-					<div id="menu">
+					<div id="prsntnMenu">
 						<?if($_SESSION["msg"]!=''){?>
 							<div id="succesMsg" style="display:block;"></div>
 						<?}?>
@@ -48,15 +50,14 @@
 						<div id="popup_content">
 							<div id="presentnForm" class="popupForm">
 								<ul>
-									<li style="margin:10px 0 0 0;">Name your presentation</li>
-									<li style="margin:10px 0 0 0;">:</li>
+									<li style="margin:10px 0 0 0;">Name your presentation<li>
+									<li style="margin:10px 0 0 0;">:<li>
 									<li>
-										<input type="text" id="prestnName" name="prestnName" class="popupTextbox" onkeyup="checkPresention()">
-										<span id="errormsg" style=" margin: 0 0 0 120px;"></span>
-									</li>
+										<input type="text" id="prestnName" name="prestnName" class="popupTextbox">
+									<li>
 									<li style="width:100%;">
 										<input type="button" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
-										<input type="hidden" id="valD" name="valD">
+										<input type="hidden" value="Create" id="prestnBtn" name="prestnBtn" class="popupBtn">
 									</li>
 								</ul>
 							</div>
