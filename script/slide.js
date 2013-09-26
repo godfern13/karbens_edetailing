@@ -129,6 +129,24 @@ $(document).ready(function(){
 		$('#'+divId).css({'z-index':newIndex});
 		event.stopPropagation();
 	});
+	
+	/***************************************************************
+	*******************Hiding/Showing the tool box******************
+	****************************************************************/
+	
+	var shwStatus = false;
+	$('#hdToolKit').click(function(event){
+		if(shwStatus == false){
+			$('#hdToolKit').text('show');
+			shwStatus = true;
+		}
+		else{
+			$('#hdToolKit').text('hide');
+			shwStatus = false;
+		}
+		$('#rightDiv').toggle( "slide",{ direction: "right" });
+	});
+	
 });
 
 /********************************************************************************************************************

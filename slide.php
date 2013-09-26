@@ -51,7 +51,7 @@
 				<div id="container">
 					<div id="webFrameBody">
 						<div id="webFrameMenu">
-							<ul style="width:950px">
+							<ul style="width:1095px">
 								<li >								
 									<input type="image" name="saveSlide" id="saveSlide" src="images/sld_sv.png" onclick="return slideSaveCall()" title="SAVE SLIDE" style="width:35px;height:35px;"/>
 									<input type="hidden" id="prntId" name="prntId" value="<?echo $slideId?>">
@@ -60,7 +60,9 @@
 									<p id="sndbk" class="backBtn">SEND TO BACK</p>
 									<p id="bngfrnt" class="frntBtn">BRING TO FRONT</p>	
 								</li>
-								
+								<li style="float:right;width:100px; margin: 22px 0 0;">
+									<p id="hdToolKit" class="toolBtn">Hide</p>
+								</li>								
 							</ul>
 						</div>
 						<div id="createArea">
