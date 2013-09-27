@@ -96,14 +96,14 @@
 				};
 				//if(clicked == true){
 					dragresize.ondragend 	= function(isResize) {
-						//clicked = true;
-						//if(clicked == true){
+						clicked = true;
+						if(clicked == true){
 							var id 	= $el.attr('id');
 							counter = id.slice(-1);
 							//alert('calling in ondragend');
 							calCordinates(parentX,parentY,counter,childType);
-						//	clicked = false;
-						//}
+							clicked = false;
+						}
 					};
 				//}
 				dragresize.ondragblur = function() {

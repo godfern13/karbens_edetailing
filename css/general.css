@@ -536,12 +536,19 @@ min-height: 400px;
 }
 
 #rightDiv{
-float:left;
+/*float:left;
 margin:0 0 0;
 padding:0 0 0;
 width:300px;
 min-height: 400px;
-background:#F6F6F6;
+background:#F6F6F6;*/
+
+background: none repeat scroll 0 0 #F6F6F6;
+display: inline-block;
+margin: 0;
+padding: 0;
+position: relative;
+width: 300px;
 }
 
 #specfcatnDiv{
