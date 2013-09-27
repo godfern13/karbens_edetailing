@@ -26,6 +26,35 @@
 				$el.draggable( 'disable' );
 				$el.addClass('drsElement');
 				$el.css({"cursor": "default","z-index":index});
+				var childType1 = $el.hasClass( "text" );
+				var childType2 = $el.hasClass( "image" );
+				var childType3 = $el.hasClass( "video" );
+				var childType4 = $el.hasClass( "ref" );
+				
+				if(childType1 == true){
+					childType = 1;
+				}
+				else{
+					childType1 = false;
+				}
+				if(childType2 == true){
+					childType = 2;
+				}
+				else{
+					childType2 = false;
+				}
+				if(childType3 == true){
+					childType = 3;
+				}
+				else{
+					childType3 = false;
+				}
+				if(childType4 == true){
+					childType = 4;
+				}
+				else{
+					childType4 = false;
+				}
 				
 				$('.drsElement').click(function(e){
 					e.stopPropagation();
@@ -65,18 +94,18 @@
 					$("#chldImg"+counter).attr({width: wi});
 					$("#chldImg"+counter).attr({height: hi});
 				};
-				if(clicked == true){
+				//if(clicked == true){
 					dragresize.ondragend 	= function(isResize) {
 						//clicked = true;
 						//if(clicked == true){
 							var id 	= $el.attr('id');
 							counter = id.slice(-1);
 							//alert('calling in ondragend');
-							calCordinates(parentX,parentY,counter);
+							calCordinates(parentX,parentY,counter,childType);
 						//	clicked = false;
 						//}
 					};
-				}
+				//}
 				dragresize.ondragblur = function() {
 					$el.css({"cursor": "all-scroll"});
 					$el.draggable( 'enable' );					

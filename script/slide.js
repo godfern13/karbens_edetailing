@@ -38,10 +38,10 @@ $(document).ready(function(){
 		/*--------------------------------------- first time drag -----------------------------------------------*/
 		stop:function(ev, ui) { 
 			$(this).css("z-index", zindexval); 
-			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
-			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
-			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
-			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}
+			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}//Text
+			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}//Image
+			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}//Video
+			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}//References
 			
 			var pos=$(ui.helper).offset();
 			objName = "#clonediv"+counter
@@ -67,10 +67,10 @@ $(document).ready(function(){
 	$("#frame").droppable({ 
 		drop: function(ev, ui) { 
 			
-			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}
-			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}
-			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}
-			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}
+			if(ui.helper.attr('id') == 'drag1'){ var childType=1;}//Text
+			else if(ui.helper.attr('id') == 'drag2'){ var childType=2;}//Image
+			else if(ui.helper.attr('id') == 'drag3'){ var childType=3;}//Video
+			else if(ui.helper.attr('id') == 'drag4'){ var childType=4;}//References
 		
 			if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
 				counter++;
@@ -87,6 +87,36 @@ $(document).ready(function(){
 					counter = this.id.slice(-1);
 					showChildSpec(counter);
 				});
+				if(childType ==1){
+					$("#clonediv"+counter).addClass("text");
+				}
+				else if(childType ==2){
+					$("#clonediv"+counter).addClass("image");
+				}
+				else if(childType ==3){
+					$("#clonediv"+counter).addClass("video");
+				}
+				if(childType ==4){
+					$("#clonediv"+counter).addClass("ref");
+				}
+				
+			//Adding html content if its a video
+			//var vidStatus = false;
+			//if(childType == 3){
+				
+				//if(vidStatus == true){
+				//$("#clonediv"+counter).append("<video width='200' height='100' controls autoplay><source src='movie.ogg' type='video/ogg'> <source src='movie.mp4' type='video/mp4'><object data='movie.mp4' width='320' height='240'><embed width='320' height='240' src='movie.swf'> </object></video>");
+					//vidStatus = true;
+				/*}
+				else{
+					$("#clonediv"+counter).append("");
+					vidStatus = true;
+				}*/
+			//}
+			/*$("input[name=videoUpload]").change(function() {
+				$(this).closest("form").submit();
+			});*/
+			
 				/*---------------------------------- Get the dynamically item id -------------------------------*/
 				draggedNumber = ui.helper.attr('id').search(/drag([0-9])/)
 				if(ui.helper.attr('id') == 'drag4'){ itemDragged = "dragged2" }
@@ -129,24 +159,7 @@ $(document).ready(function(){
 		$('#'+divId).css({'z-index':newIndex});
 		event.stopPropagation();
 	});
-	
-	/***************************************************************
-	*******************Hiding/Showing the tool box******************
-	****************************************************************/
-	
-	var shwStatus = false;
-	$('#hdToolKit').click(function(event){
-		if(shwStatus == false){
-			$('#hdToolKit').text('show');
-			shwStatus = true;
-		}
-		else{
-			$('#hdToolKit').text('hide');
-			shwStatus = false;
-		}
-		$('#rightDiv').toggle( "slide",{ direction: "right" });
-	});
-	
+
 });
 
 /********************************************************************************************************************
@@ -504,8 +517,9 @@ function changeChildVdo(chldCnt,childType)
 	var childWdth	=	parseFloat($('input#chldWdth').val());
 	var childHeght	=	parseFloat($('input#chldHght').val());
 	var childVdo	=	$('input#childVdoPath'+chldCnt).val();
-	//var chldVdoFrm	=	' <iframe src="'+childVdo+'" frameborder="0" id="chldVdO'+chldCnt+'"></iframe>';
-	$("#clonediv"+chldCnt).html(childVdo);
+	var chldVdoFrm	=	"<video width='200' height='100' controls autoplay><source src="+childVdo+" type='video/ogg'> <source src="+childVdo+" type='video/mp4'><source src="+childVdo+" type='video/wmv'><object data="+childVdo+" width='320' height='240'><embed width='320' height='240' src='movie.swf'> </object></video>";
+	//<iframe src="'+childVdo+'" frameborder="0" id="chldVdO'+chldCnt+'"></iframe>';
+	$("#clonediv"+chldCnt).html(chldVdoFrm);
 	$("#chldVdO"+chldCnt).attr({width: childWdth});
 	$("#chldVdO"+chldCnt).attr({height: childHeght});
 	

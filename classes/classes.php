@@ -416,7 +416,12 @@
 				$chldspeDisp	.=	"<tr>";
 				$chldspeDisp	.=	"<td>Video Path</td>";
 				$chldspeDisp	.=	"<td>:</td>";
-				$chldspeDisp	.=	"<td><input type='text' name='childVdoPath$this->childNo' id='childVdoPath$this->childNo' onchange='return changeChildVdo($this->childNo,$this->childCntType)' value='$this->childVdoPath'/></td>";
+				
+				$chldspeDisp	.=	"<td>
+										<form name='childVideoFrm' method='post' autocomplete='off' enctype='multipart/form-data'>
+											<input type='file' name='childVdoPath$this->childNo' id='childVdoPath$this->childNo' onchange='return changeChildVdo($this->childNo,$this->childCntType)' value='$this->childVdoPath'/>
+										</form>
+									</td>";
 				$chldspeDisp	.=	"</tr>";
 			}
 			else if($this->childCntType == 4){

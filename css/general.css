@@ -522,6 +522,7 @@ margin:0 0 0;
 padding:0 0 0;
 width:800px;
 min-height: 400px;
+
 }
 
 #frame{
@@ -531,6 +532,7 @@ min-height: 400px;
 	background-repeat: repeat-y;
     background-position: 0 0;
 	z-index: 0;
+	
 }
 
 #rightDiv{
