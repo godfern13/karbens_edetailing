@@ -43,7 +43,7 @@
 	<script type="text/javascript" src="script/dragresize.js"></script>
 	<script type="text/javascript" src="jscolor/jscolor.js"></script>	
 	<script type="text/javascript" src="script/resize.js"></script>
-	<script type="text/javascript" src="script/hide.js"></script>
+	<!--<script type="text/javascript" src="script/hide.js"></script>-->
 </head>
 	<body>
 		<div id="wrapper">

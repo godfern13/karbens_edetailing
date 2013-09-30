@@ -8,17 +8,15 @@
 	$('#hdToolKit').click(function(event){
 		if(shwStatus == false){
 			$('#hdToolKit').text('show');
-			alert(shwStatus);
-			//$('#rightDiv').animate({left:'250px'});
+			$("#rightDiv").animate({left:'300px',width: "toggle"});
 			shwStatus = true;
 		}
 		else{
 			$('#hdToolKit').text('hide');
-			//$('#rightDiv').animate({right:'0px'});
-			alert(shwStatus);
+			$("#rightDiv").animate({left:'0px',width: "toggle"});
 			shwStatus = false;
 		}
-		//$('#rightDiv').toggle();
+		
 		
 	});
 });

@@ -522,7 +522,6 @@ margin:0 0 0;
 padding:0 0 0;
 width:800px;
 min-height: 400px;
-
 }
 
 #frame{
@@ -532,17 +531,10 @@ min-height: 400px;
 	background-repeat: repeat-y;
     background-position: 0 0;
 	z-index: 0;
-	
+	overflow-y: hidden;
 }
 
 #rightDiv{
-/*float:left;
-margin:0 0 0;
-padding:0 0 0;
-width:300px;
-min-height: 400px;
-background:#F6F6F6;*/
-
 background: none repeat scroll 0 0 #F6F6F6;
 display: inline-block;
 margin: 0;

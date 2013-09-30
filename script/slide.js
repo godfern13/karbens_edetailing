@@ -159,6 +159,26 @@ $(document).ready(function(){
 		$('#'+divId).css({'z-index':newIndex});
 		event.stopPropagation();
 	});
+	
+	var shwStatus = false;
+	
+	$('#hdToolKit').click(function(event){
+		if(shwStatus == false){
+			var width = 800;
+			
+			$('#hdToolKit').text('show');
+			$("#rightDiv").animate({left:'300px',width: "toggle"});
+			$("#frame").css({'width':parseInt(width)+300});
+			$("#createArea").css({'overflow': 'visible'});
+			shwStatus = true;
+		}
+		else{
+			$('#hdToolKit').text('hide');
+			$("#rightDiv").animate({left:'0px',width: "toggle"});
+			$("#createArea").css({'overflow-x': 'auto'});
+			shwStatus = false;
+		}
+	});
 
 });
 
